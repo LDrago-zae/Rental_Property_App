@@ -1,147 +1,291 @@
 import 'package:flutter/material.dart';
 import 'package:rent_app/Screens/signin.dart';
 
-class Login extends StatelessWidget {
-  Login({Key? key}) : super(key: key);
+class Login extends StatefulWidget {
+  const Login({super.key});
 
-  final TextEditingController email = TextEditingController();
-  final TextEditingController password = TextEditingController();
+  @override
+  State<Login> createState() => _LoginState();
+}
 
-  final formkey = GlobalKey<FormState>();
+class _LoginState extends State<Login> {
+  final phoneController = TextEditingController();
+  final passwordController = TextEditingController();
+  String selectedCountryCode = "+92"; // Default country code
+
+  void signIn(String countryCode, String phone, String password) {
+    print("Signing in with phone: $countryCode $phone and password: $password");
+  }
+
+  void signInWithGoogle() {
+    print("Signing in with Google");
+  }
+
+  void signInWithFacebook() {
+    print("Signing in with Facebook");
+  }
+
+  void signInAsGuest(BuildContext context) {
+    print("Signing in as Guest");
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => GuestHomeScreen()),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: SingleChildScrollView(
-      child: Container(
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height,
-        decoration: BoxDecoration(color: Color(0xff0e212d)),
+      backgroundColor: Colors.white,
+      body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.only(top: 200),
-          child: Form(
-            key: formkey,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Text(
-                  "LOGIN",
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold),
-                ),
-                SizedBox(
-                  height: 30,
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(30.0),
-                  child: TextFormField(
-                      controller: email,
-                      textInputAction: TextInputAction.done,
-                      onFieldSubmitted: (_) {
-                        FocusScope.of(context).unfocus();
-                      },
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(14))),
-                        labelText: "Email ",
-                        labelStyle:
-                            TextStyle(color: Colors.white, fontSize: 16),
+          padding: const EdgeInsets.all(10.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 60, right: 30),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      width: 80,
+                      height: 80,
+                      child: CircleAvatar(
+                        backgroundImage: AssetImage("assets/logo.png"),
+                        backgroundColor: Colors.transparent,
                       ),
-                      cursorColor: Colors.white,
+                    ),
+                    SizedBox(width: 0),
+                    Text(
+                      "Home",
                       style: TextStyle(
-                        color: Colors.white,
+                        color: Color(0xff015c4e),
+                        fontSize: 25,
+                        fontWeight: FontWeight.bold,
                       ),
-                      validator: (String? txt) {
-                        if (txt == null || txt.isEmpty)
-                          return "Enter your email";
-                        return null;
-                      }),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 30, right: 30, top: 10),
-                  child: TextFormField(
-                      obscureText: true,
-                      obscuringCharacter: "*",
-                      controller: password,
-                      textInputAction: TextInputAction.done,
-                      onFieldSubmitted: (_) {
-                        FocusScope.of(context).unfocus();
-                      },
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(14))),
-                        labelText: "Password ",
-                        labelStyle:
-                            TextStyle(color: Colors.white, fontSize: 16),
-                      ),
-                      cursorColor: Colors.white,
+                    ),
+                    Text(
+                      "Rent",
                       style: TextStyle(
-                        color: Colors.white,
+                        color: Color(0xff97be04),
+                        fontSize: 25,
+                        fontWeight: FontWeight.bold,
                       ),
-                      validator: (String? txt) {
-                        if (txt == null || txt.isEmpty)
-                          return "Enter your password";
-
-                        return null;
-                      }),
+                    ),
+                  ],
                 ),
-                SizedBox(
-                  height: 30,
+              ),
+              SizedBox(height: 40),
+              Text(
+                "Sign in your account",
+                style: TextStyle(
+                  color: Color(0xff015c4e),
+                  fontSize: 25,
+                  fontWeight: FontWeight.bold,
                 ),
-                ElevatedButton(
-                  onPressed: _login,
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor: Color(0xFF000000),
-                      foregroundColor: Colors.white,
-                      shadowColor: Colors.white),
-                  child: Text(
-                    "Login",
-                    style:
-                        TextStyle(fontSize: 20, fontWeight: FontWeight.normal),
-                  ),
+              ),
+              SizedBox(height: 40),
+              Padding(
+                padding: const EdgeInsets.only(right: 270),
+                child: Text(
+                  "Phone",
+                  style: TextStyle(color: Colors.black54, fontWeight: FontWeight.bold),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 90, top: 20),
-                  child: Row(
-                    children: [
-                      Text(
-                        "Don't Have an Account?",
-                        style: TextStyle(color: Colors.white, fontSize: 14),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(right: 25, left: 20, bottom: 20),
+                child: Row(
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
+                      decoration: BoxDecoration(
+                        color: Colors.black12,
+                        borderRadius: BorderRadius.circular(8),
+                        border: Border.all(color: Colors.grey),
                       ),
-                      SizedBox(
-                        width: 5,
-                      ),
-                      InkWell(
-                        child: Text(
-                          "Signin here",
-                          style: TextStyle(
-                              color: Colors.lightBlueAccent, fontSize: 14),
-                        ),
-                        onTap: () {
-                          Navigator.of(context)
-                              .push(MaterialPageRoute(builder: (context) {
-                            return Signin();
-                          }));
+                      child: DropdownButton<String>(
+                        value: selectedCountryCode,
+                        items: <String>['+92', '+1', '+44', '+61']
+                            .map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
+                        onChanged: (String? newValue) {
+                          setState(() {
+                            selectedCountryCode = newValue!;
+                          });
                         },
+                        underline: SizedBox(),
+                        dropdownColor: Colors.white,
                       ),
-                    ],
+                    ),
+                    SizedBox(width: 10),
+                    Expanded(
+                      child: Container(
+                        color: Colors.black12,
+                        child: TextField(
+                          controller: phoneController,
+                          keyboardType: TextInputType.phone,
+                          decoration: InputDecoration(
+                            hintText: "1234567890",
+                            hintStyle: TextStyle(fontWeight: FontWeight.normal),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(8),
+                              borderSide: BorderSide.none,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(height: 20),
+              Padding(
+                padding: const EdgeInsets.only(right: 250),
+                child: Text(
+                  "Password",
+                  style: TextStyle(color: Colors.black54, fontWeight: FontWeight.bold),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(right: 25, left: 20, bottom: 20),
+                child: Container(
+                  color: Colors.black12,
+                  child: TextField(
+                    controller: passwordController,
+                    obscureText: true,
+                    decoration: InputDecoration(
+                      hintText: "********",
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide: BorderSide.none,
+                      ),
+                    ),
                   ),
-                )
-              ],
-            ),
+                ),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  signIn(selectedCountryCode, phoneController.text, passwordController.text);
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color(0xff97be04),
+                  padding: EdgeInsets.symmetric(horizontal: 100, vertical: 15),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                ),
+                child: Text(
+                  'SIGN IN',
+                  style: TextStyle(
+                    color: Color(0xff015c4e),
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                  ),
+                ),
+              ),
+              SizedBox(height: 20),
+              Text(
+                'or sign in with',
+                style: TextStyle(color: Colors.black54, fontSize: 16),
+              ),
+              SizedBox(height: 20),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    color: Colors.black12,
+                    child: IconButton(
+                      icon: Image.asset('assets/icons/google.png'),
+                      iconSize: 40,
+                      onPressed: signInWithGoogle,
+                    ),
+                  ),
+                  SizedBox(width: 15),
+                  Container(
+                    color: Colors.black12,
+                    child: IconButton(
+                      icon: Image.asset('assets/icons/facebook.png'),
+                      iconSize: 40,
+                      onPressed: signInWithFacebook,
+                    ),
+                  ),
+                  SizedBox(width: 15),
+                  Container(
+                    color: Colors.black12,
+                    child: IconButton(
+                      icon: Image.asset('assets/icons/twitter.png'),
+                      iconSize: 40,
+                      onPressed: () {
+                        print("Signing in with Twitter");
+                      },
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 25),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "Don't have an account? ",
+                    style: TextStyle(color: Colors.black45, fontSize: 16),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) {
+                        return Signin();
+                      }));
+                    },
+                    child: Text(
+                      'SIGN UP',
+                      style: TextStyle(
+                        color: Colors.green[700],
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 18),
+              GestureDetector(
+                onTap: () {
+                  signInAsGuest(context);
+                },
+                child: Text(
+                  'GUEST USER',
+                  style: TextStyle(
+                    color: Colors.green[700],
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       ),
-    ));
+    );
   }
+}
 
-  void _login() {
-    if (formkey.currentState!.validate() == false) {
-      return;
-    }
+// Guest Home Screen Example
+class GuestHomeScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Guest Home"),
+      ),
+      body: Center(
+        child: Text(
+          "Welcome, Guest User!",
+          style: TextStyle(fontSize: 24),
+        ),
+      ),
+    );
   }
 }
