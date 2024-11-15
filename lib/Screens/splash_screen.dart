@@ -15,11 +15,11 @@ class _SplashState extends State<Splash> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(Duration(seconds: 2)).then((_){
+    Future.delayed(const Duration(seconds: 2)).then((_){
       Navigator.of(context)
           .pushReplacement(MaterialPageRoute(builder: (context) {
         //return OnboardingScreen();
-        return Login();
+        return const Login();
       }));
     });
   }

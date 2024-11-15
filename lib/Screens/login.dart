@@ -29,7 +29,7 @@ class _LoginState extends State<Login> {
     print("Signing in as Guest");
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => GuestHomeScreen()),
+      MaterialPageRoute(builder: (context) => const GuestHomeScreen()),
     );
   }
 
@@ -51,13 +51,13 @@ class _LoginState extends State<Login> {
                     Container(
                       width: 80,
                       height: 80,
-                      child: CircleAvatar(
+                      child: const CircleAvatar(
                         backgroundImage: AssetImage("assets/logo.png"),
                         backgroundColor: Colors.transparent,
                       ),
                     ),
-                    SizedBox(width: 0),
-                    Text(
+                    const SizedBox(width: 0),
+                    const Text(
                       "Home",
                       style: TextStyle(
                         color: Color(0xff015c4e),
@@ -65,7 +65,7 @@ class _LoginState extends State<Login> {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    Text(
+                    const Text(
                       "Rent",
                       style: TextStyle(
                         color: Color(0xff97be04),
@@ -76,8 +76,8 @@ class _LoginState extends State<Login> {
                   ],
                 ),
               ),
-              SizedBox(height: 40),
-              Text(
+              const SizedBox(height: 40),
+              const Text(
                 "Sign in your account",
                 style: TextStyle(
                   color: Color(0xff015c4e),
@@ -85,9 +85,9 @@ class _LoginState extends State<Login> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              SizedBox(height: 40),
-              Padding(
-                padding: const EdgeInsets.only(right: 270),
+              const SizedBox(height: 40),
+              const Padding(
+                padding: EdgeInsets.only(right: 270),
                 child: Text(
                   "Phone",
                   style: TextStyle(color: Colors.black54, fontWeight: FontWeight.bold),
@@ -98,11 +98,11 @@ class _LoginState extends State<Login> {
                 child: Row(
                   children: [
                     Container(
+                      height: 45,
                       padding: const EdgeInsets.symmetric(horizontal: 8),
                       decoration: BoxDecoration(
                         color: Colors.black12,
                         borderRadius: BorderRadius.circular(8),
-                        border: Border.all(color: Colors.grey),
                       ),
                       child: DropdownButton<String>(
                         value: selectedCountryCode,
@@ -118,24 +118,30 @@ class _LoginState extends State<Login> {
                             selectedCountryCode = newValue!;
                           });
                         },
-                        underline: SizedBox(),
-                        dropdownColor: Colors.white,
+                        underline: const SizedBox(),
+                        dropdownColor: Colors.grey.shade100,
                       ),
                     ),
-                    SizedBox(width: 10),
+                    const SizedBox(width: 10),
                     Expanded(
                       child: Container(
-                        color: Colors.black12,
+                        height: 50,
+                        decoration: BoxDecoration(
+                          color: Colors.black12,
+                          borderRadius: BorderRadius.circular(15), // Rounded corners for container
+                        ),
                         child: TextField(
                           controller: phoneController,
                           keyboardType: TextInputType.phone,
                           decoration: InputDecoration(
                             hintText: "1234567890",
-                            hintStyle: TextStyle(fontWeight: FontWeight.normal),
+                            hintStyle: const TextStyle(fontWeight: FontWeight.normal),
                             border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(8),
+                              borderRadius: BorderRadius.circular(15), // Rounded corners for TextField
                               borderSide: BorderSide.none,
                             ),
+                            fillColor: Colors.transparent,
+                            filled: true,
                           ),
                         ),
                       ),
@@ -143,9 +149,9 @@ class _LoginState extends State<Login> {
                   ],
                 ),
               ),
-              SizedBox(height: 20),
-              Padding(
-                padding: const EdgeInsets.only(right: 250),
+              const SizedBox(height: 20),
+              const Padding(
+                padding: EdgeInsets.only(right: 250),
                 child: Text(
                   "Password",
                   style: TextStyle(color: Colors.black54, fontWeight: FontWeight.bold),
@@ -154,16 +160,21 @@ class _LoginState extends State<Login> {
               Padding(
                 padding: const EdgeInsets.only(right: 25, left: 20, bottom: 20),
                 child: Container(
-                  color: Colors.black12,
+                  decoration: BoxDecoration(
+                    color: Colors.black12,
+                    borderRadius: BorderRadius.circular(15), // Rounded corners for container
+                  ),
                   child: TextField(
                     controller: passwordController,
                     obscureText: true,
                     decoration: InputDecoration(
                       hintText: "********",
                       border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
+                        borderRadius: BorderRadius.circular(15), // Rounded corners for TextField
                         borderSide: BorderSide.none,
                       ),
+                      filled: true,
+                      fillColor: Colors.transparent,
                     ),
                   ),
                 ),
@@ -173,14 +184,14 @@ class _LoginState extends State<Login> {
                   signIn(selectedCountryCode, phoneController.text, passwordController.text);
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Color(0xff97be04),
-                  padding: EdgeInsets.symmetric(horizontal: 100, vertical: 15),
+                  backgroundColor: const Color(0xff97be04),
+                  padding: const EdgeInsets.symmetric(horizontal: 100, vertical: 15),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8),
                   ),
                 ),
-                child: Text(
-                  'SIGN IN',
+                child: const Text(
+                  'Sign In',
                   style: TextStyle(
                     color: Color(0xff015c4e),
                     fontWeight: FontWeight.bold,
@@ -188,12 +199,12 @@ class _LoginState extends State<Login> {
                   ),
                 ),
               ),
-              SizedBox(height: 20),
-              Text(
-                'or sign in with',
+              const SizedBox(height: 20),
+              const Text(
+                'or Sign In with',
                 style: TextStyle(color: Colors.black54, fontSize: 16),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -205,7 +216,7 @@ class _LoginState extends State<Login> {
                       onPressed: signInWithGoogle,
                     ),
                   ),
-                  SizedBox(width: 15),
+                  const SizedBox(width: 15),
                   Container(
                     color: Colors.black12,
                     child: IconButton(
@@ -214,7 +225,7 @@ class _LoginState extends State<Login> {
                       onPressed: signInWithFacebook,
                     ),
                   ),
-                  SizedBox(width: 15),
+                  const SizedBox(width: 15),
                   Container(
                     color: Colors.black12,
                     child: IconButton(
@@ -227,19 +238,17 @@ class _LoginState extends State<Login> {
                   ),
                 ],
               ),
-              SizedBox(height: 25),
+              const SizedBox(height: 25),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
+                  const Text(
                     "Don't have an account? ",
                     style: TextStyle(color: Colors.black45, fontSize: 16),
                   ),
                   GestureDetector(
                     onTap: () {
-                      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) {
-                        return Signin();
-                      }));
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => const SignUp(),),);
                     },
                     child: Text(
                       'SIGN UP',
@@ -251,7 +260,7 @@ class _LoginState extends State<Login> {
                   ),
                 ],
               ),
-              SizedBox(height: 18),
+              const SizedBox(height: 18),
               GestureDetector(
                 onTap: () {
                   signInAsGuest(context);
@@ -274,13 +283,15 @@ class _LoginState extends State<Login> {
 
 // Guest Home Screen Example
 class GuestHomeScreen extends StatelessWidget {
+  const GuestHomeScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Guest Home"),
+        title: const Text("Guest Home"),
       ),
-      body: Center(
+      body: const Center(
         child: Text(
           "Welcome, Guest User!",
           style: TextStyle(fontSize: 24),
