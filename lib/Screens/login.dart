@@ -36,7 +36,6 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-<<<<<<< Updated upstream
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Padding(
@@ -118,138 +117,16 @@ class _LoginState extends State<Login> {
                           setState(() {
                             selectedCountryCode = newValue!;
                           });
-=======
-        body: SingleChildScrollView(
-      child: Container(
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height,
-        decoration: const BoxDecoration(color: Color(0xff0e212d)),
-        child: Padding(
-          padding: const EdgeInsets.only(top: 200),
-          child: Form(
-            key: formkey,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                const Text(
-                  "LOGIN",
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(
-                  height: 30,
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(30.0),
-                  child: TextFormField(
-                      controller: email,
-                      textInputAction: TextInputAction.done,
-                      onFieldSubmitted: (_) {
-                        FocusScope.of(context).unfocus();
-                      },
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(14))),
-                        labelText: "Email ",
-                        labelStyle:
-                            TextStyle(color: Colors.white, fontSize: 16),
-                      ),
-                      cursorColor: Colors.white,
-                      style: const TextStyle(
-                        color: Colors.white,
-                      ),
-                      validator: (String? txt) {
-                        if (txt == null || txt.isEmpty) {
-                          return "Enter your email";
-                        }
-                        return null;
-                      }),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 30, right: 30, top: 10),
-                  child: TextFormField(
-                      obscureText: true,
-                      obscuringCharacter: "*",
-                      controller: password,
-                      textInputAction: TextInputAction.done,
-                      onFieldSubmitted: (_) {
-                        FocusScope.of(context).unfocus();
-                      },
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(14),
-                          ),
-                        ),
-                        labelText: "Password ",
-                        labelStyle:
-                            TextStyle(color: Colors.white, fontSize: 16),
-                      ),
-                      cursorColor: Colors.white,
-                      style: const TextStyle(
-                        color: Colors.white,
-                      ),
-                      validator: (String? txt) {
-                        if (txt == null || txt.isEmpty) {
-                          return "Enter your password";
-                        }
-
-                        return null;
-                      }),
-                ),
-                const SizedBox(
-                  height: 30,
-                ),
-                ElevatedButton(
-                  onPressed: _login,
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF000000),
-                      foregroundColor: Colors.white,
-                      shadowColor: Colors.transparent),
-                  child: const Text(
-                    "Login",
-                    style:
-                        TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 90, top: 20),
-                  child: Row(
-                    children: [
-                      const Text(
-                        "Don't Have an Account?",
-                        style: TextStyle(color: Colors.white, fontSize: 14),
-                      ),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      InkWell(
-                        child: const Text(
-                          "SignUp",
-                          style: TextStyle(
-                              color: Colors.lightBlueAccent, fontSize: 14),
-                        ),
-                        onTap: () {
-                          Navigator.of(context)
-                              .push(MaterialPageRoute(builder: (context) {
-                            return Signin();
-                          }));
->>>>>>> Stashed changes
                         },
-                        underline: const SizedBox(),
-                        dropdownColor: Colors.grey.shade100,
                       ),
                     ),
-                    const SizedBox(width: 10),
+                    const SizedBox(width: 15),
                     Expanded(
                       child: Container(
-                        height: 50,
+                        height: 45,
                         decoration: BoxDecoration(
                           color: Colors.black12,
-                          borderRadius: BorderRadius.circular(15), // Rounded corners for container
+                          borderRadius: BorderRadius.circular(8),
                         ),
                         child: TextField(
                           controller: phoneController,
@@ -258,7 +135,7 @@ class _LoginState extends State<Login> {
                             hintText: "1234567890",
                             hintStyle: const TextStyle(fontWeight: FontWeight.normal),
                             border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(15), // Rounded corners for TextField
+                              borderRadius: BorderRadius.circular(15),
                               borderSide: BorderSide.none,
                             ),
                             fillColor: Colors.transparent,
@@ -270,7 +147,6 @@ class _LoginState extends State<Login> {
                   ],
                 ),
               ),
-              const SizedBox(height: 20),
               const Padding(
                 padding: EdgeInsets.only(right: 250),
                 child: Text(
@@ -283,7 +159,7 @@ class _LoginState extends State<Login> {
                 child: Container(
                   decoration: BoxDecoration(
                     color: Colors.black12,
-                    borderRadius: BorderRadius.circular(15), // Rounded corners for container
+                    borderRadius: BorderRadius.circular(15),
                   ),
                   child: TextField(
                     controller: passwordController,
@@ -291,7 +167,7 @@ class _LoginState extends State<Login> {
                     decoration: InputDecoration(
                       hintText: "********",
                       border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15), // Rounded corners for TextField
+                        borderRadius: BorderRadius.circular(15),
                         borderSide: BorderSide.none,
                       ),
                       filled: true,

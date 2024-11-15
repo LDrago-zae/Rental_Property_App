@@ -15,7 +15,8 @@ class _SignUpState extends State<SignUp> {
   String selectedCountryCode = "+92"; // Default country code
 
   void signUp(String name, String countryCode, String phone, String password) {
-    print("Signing up with name: $name, phone: $countryCode $phone, and password: $password");
+    print(
+        "Signing up with name: $name, phone: $countryCode $phone, and password: $password");
   }
 
   void signUpWithGoogle() {
@@ -36,7 +37,8 @@ class _SignUpState extends State<SignUp> {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios, color: Colors.black),
           onPressed: () {
-            Navigator.pop(context); // Go back to the previous screen (Login screen)
+            Navigator.pop(
+                context); // Go back to the previous screen (Login screen)
           },
         ),
       ),
@@ -60,11 +62,13 @@ class _SignUpState extends State<SignUp> {
                 padding: EdgeInsets.only(right: 270),
                 child: Text(
                   "Name",
-                  style: TextStyle(color: Colors.black54, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                      color: Colors.black54, fontWeight: FontWeight.bold),
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                 child: Container(
                   decoration: BoxDecoration(
                     color: Colors.black12,
@@ -88,11 +92,13 @@ class _SignUpState extends State<SignUp> {
                 padding: EdgeInsets.only(right: 270),
                 child: Text(
                   "Phone",
-                  style: TextStyle(color: Colors.black54, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                      color: Colors.black54, fontWeight: FontWeight.bold),
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                 child: Row(
                   children: [
                     Container(
@@ -133,7 +139,8 @@ class _SignUpState extends State<SignUp> {
                           keyboardType: TextInputType.phone,
                           decoration: InputDecoration(
                             hintText: "1234567890",
-                            hintStyle: const TextStyle(fontWeight: FontWeight.normal),
+                            hintStyle:
+                                const TextStyle(fontWeight: FontWeight.normal),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(15),
                               borderSide: BorderSide.none,
@@ -151,11 +158,13 @@ class _SignUpState extends State<SignUp> {
                 padding: EdgeInsets.only(right: 250),
                 child: Text(
                   "Password",
-                  style: TextStyle(color: Colors.black54, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                      color: Colors.black54, fontWeight: FontWeight.bold),
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                 child: Container(
                   decoration: BoxDecoration(
                     color: Colors.black12,
@@ -180,11 +189,13 @@ class _SignUpState extends State<SignUp> {
                 padding: EdgeInsets.only(right: 220),
                 child: Text(
                   "Confirm Password",
-                  style: TextStyle(color: Colors.black54, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                      color: Colors.black54, fontWeight: FontWeight.bold),
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                 child: Container(
                   decoration: BoxDecoration(
                     color: Colors.black12,
@@ -205,6 +216,7 @@ class _SignUpState extends State<SignUp> {
                   ),
                 ),
               ),
+              const SizedBox(height: 10,),
               ElevatedButton(
                 onPressed: () {
                   signUp(
@@ -216,7 +228,8 @@ class _SignUpState extends State<SignUp> {
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xff97be04),
-                  padding: const EdgeInsets.symmetric(horizontal: 100, vertical: 15),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 100, vertical: 15),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8),
                   ),
@@ -268,7 +281,8 @@ class _SignUpState extends State<SignUp> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      Navigator.of(context).pop(); // Navigate back to Login screen
+                      Navigator.of(context)
+                          .pop(); // Navigate back to Login screen
                     },
                     child: Text(
                       'SIGN IN',
