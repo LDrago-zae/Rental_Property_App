@@ -1,3 +1,15 @@
+// Root-level build file where you can add configuration options common to all sub-projects/modules.
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        // Use a compatible Android Gradle Plugin version
+        classpath 'com.android.tools.build:gradle:8.0.2'
+    }
+}
+
 allprojects {
     repositories {
         google()
@@ -5,10 +17,12 @@ allprojects {
     }
 }
 
+// Define where the build outputs are saved
 rootProject.buildDir = "../build"
 subprojects {
     project.buildDir = "${rootProject.buildDir}/${project.name}"
 }
+
 subprojects {
     project.evaluationDependsOn(":app")
 }
