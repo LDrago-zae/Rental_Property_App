@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:rent_app/Screens/home_screen.dart';
 import 'package:rent_app/Screens/signin.dart';
 
 class Login extends StatefulWidget {
@@ -216,6 +217,7 @@ class _LoginState extends State<Login> {
                   onPressed: () {
                     signIn(selectedCountryCode, phoneController.text,
                         passwordController.text);
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => const HomeScreen()));
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xff97be04),
