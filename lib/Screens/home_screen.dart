@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:rent_app/Screens/PropertyDetailScreen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -142,7 +143,7 @@ class _HomePageState extends State<HomeScreen> {
                   children: const [
                     HouseCard(
                       imageUrl:
-                      'https://img.freepik.com/free-photo/luxury-pool-villa-spectacular-contemporary-design-digital-art-real-estate-home-house-property-ge_1258-150765.jpg',
+                          'https://img.freepik.com/free-photo/luxury-pool-villa-spectacular-contemporary-design-digital-art-real-estate-home-house-property-ge_1258-150765.jpg',
                       title: 'Dreamsville House',
                       price: '\$3,850',
                       location: 'Jl. Sultan Iskandar Muda',
@@ -150,7 +151,7 @@ class _HomePageState extends State<HomeScreen> {
                     SizedBox(width: 10),
                     HouseCard(
                       imageUrl:
-                      'https://img.freepik.com/free-photo/luxury-pool-villa-spectacular-contemporary-design-digital-art-real-estate-home-house-property-ge_1258-150749.jpg',
+                          'https://img.freepik.com/free-photo/luxury-pool-villa-spectacular-contemporary-design-digital-art-real-estate-home-house-property-ge_1258-150749.jpg',
                       title: 'Dream Haven',
                       price: '\$4,200',
                       location: 'Jl. Dream Boulevard',
@@ -162,7 +163,7 @@ class _HomePageState extends State<HomeScreen> {
 
               // Best from You Section
               Padding(
-                padding: const EdgeInsets.only(left:8.0),
+                padding: const EdgeInsets.only(left: 8.0),
                 child: Text(
                   'Best from you',
                   style: GoogleFonts.montserrat(
@@ -253,7 +254,10 @@ class _HomePageState extends State<HomeScreen> {
                                       horizontal: 16, vertical: 8),
                                 ),
                                 onPressed: () {
-                                  // Add your onPressed logic here
+                                  Navigator.of(context).push(
+                                      MaterialPageRoute(builder: (context) {
+                                    return PropertyDetailscreen();
+                                  }));
                                 },
                                 child: Text(
                                   'See Details',
@@ -326,7 +330,7 @@ class _HomePageState extends State<HomeScreen> {
           ),
         ),
         backgroundColor:
-        isSelected ? const Color(0xff97be04) : const Color(0xff015c4e),
+            isSelected ? const Color(0xff97be04) : const Color(0xff015c4e),
       ),
     );
   }

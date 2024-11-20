@@ -38,6 +38,11 @@ dependencies:
   cupertino_icons: ^1.0.8
   flutter_svg: ^2.0.14
   google_fonts: ^6.2.1
+  intl: ^0.20.0
+  carousel_slider: ^5.0.0
+  google_maps_flutter: ^2.10.0
+
+
 
 dev_dependencies:
   flutter_test:
@@ -69,6 +74,7 @@ flutter:
     - assets/icons/google.png
     - assets/icons/twitter.png
     - assets/onboarding/3dhouse.png
+
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
