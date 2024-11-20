@@ -6,7 +6,7 @@ import 'package:intl/intl.dart'; // For date and time formatting
 class ChatScreen extends StatefulWidget {
   final bool isOwner;
 
-  ChatScreen({required this.isOwner});
+  const ChatScreen({super.key, required this.isOwner});
 
   @override
   _ChatScreenState createState() => _ChatScreenState();
@@ -17,12 +17,12 @@ class _ChatScreenState extends State<ChatScreen> {
     {
       "text": "Hello, is the apartment still available?",
       "isOwner": false,
-      "timestamp": DateTime.now().subtract(Duration(minutes: 15)),
+      "timestamp": DateTime.now().subtract(const Duration(minutes: 15)),
     },
     {
       "text": "Yes, it is still available.",
       "isOwner": true,
-      "timestamp": DateTime.now().subtract(Duration(minutes: 10)),
+      "timestamp": DateTime.now().subtract(const Duration(minutes: 10)),
     },
   ];
 
@@ -59,7 +59,7 @@ class _ChatScreenState extends State<ChatScreen> {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: Colors.white, // Sets the top bar (system overlay) color
       statusBarIconBrightness: Brightness.dark, // For dark icons in status bar
     ));
@@ -72,9 +72,9 @@ class _ChatScreenState extends State<ChatScreen> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: Color(0xffdbfdf8),
+        backgroundColor: const Color(0xffdbfdf8),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Color(0xff015c4e)),
+          icon: const Icon(Icons.arrow_back, color: Color(0xff015c4e)),
           onPressed: () => Navigator.pop(context),
         ),
         title: Row(
@@ -82,7 +82,7 @@ class _ChatScreenState extends State<ChatScreen> {
             CircleAvatar(
               backgroundImage: NetworkImage(otherUser["dp"]!),
             ),
-            SizedBox(width: 10),
+            const SizedBox(width: 10),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -91,11 +91,11 @@ class _ChatScreenState extends State<ChatScreen> {
                   style: GoogleFonts.montserrat(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
-                      color: Color(0xff015c4e)),
+                      color: const Color(0xff015c4e)),
                 ),
                 Text(
                   otherUser["subtitle"]!,
-                  style:   GoogleFonts.montserrat(fontSize: 14, color: Color(0xff015c4e)),
+                  style:   GoogleFonts.montserrat(fontSize: 14, color: const Color(0xff015c4e)),
                 ),
               ],
             ),
@@ -127,7 +127,7 @@ class _ChatScreenState extends State<ChatScreen> {
             child: Container(
               decoration: BoxDecoration(
                 color: Colors.white,
-                boxShadow: [
+                boxShadow: const [
                   BoxShadow(
                     color: Colors.grey,
                     spreadRadius: 2,
@@ -142,7 +142,7 @@ class _ChatScreenState extends State<ChatScreen> {
                   Expanded(
                     child: TextField(
                       controller: messageController,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         hintText: "Write your message...",
                         border: InputBorder.none,
                         contentPadding:
@@ -152,7 +152,7 @@ class _ChatScreenState extends State<ChatScreen> {
                   ),
                   IconButton(
                     onPressed: sendMessage,
-                    icon: Icon(Icons.send, color: Color(0xff015c4e)),
+                    icon: const Icon(Icons.send, color: Color(0xff015c4e)),
                   ),
                 ],
               ),
@@ -171,7 +171,7 @@ class ChatBubble extends StatelessWidget {
   final String dp;
   final String Function(DateTime) formatDateTime;
 
-  const ChatBubble({
+  const ChatBubble({super.key,
     required this.text,
     required this.isOwner,
     required this.timestamp,
@@ -198,11 +198,11 @@ class ChatBubble extends StatelessWidget {
             isOwner ? CrossAxisAlignment.end : CrossAxisAlignment.start,
             children: [
               Container(
-                padding: EdgeInsets.all(12),
+                padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
                   color: isOwner
-                      ? Color(0xff80aca6)
-                      : Color(0xffececec), // Changed to grey for customer
+                      ? const Color(0xff80aca6)
+                      : const Color(0xffececec), // Changed to grey for customer
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: Text(
@@ -213,7 +213,7 @@ class ChatBubble extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(height: 4),
+              const SizedBox(height: 4),
               Text(
                 formatDateTime(timestamp),
                 style: GoogleFonts.montserrat(fontSize: 12, color: Colors.grey),
