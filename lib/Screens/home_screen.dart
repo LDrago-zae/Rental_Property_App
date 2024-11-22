@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rent_app/Screens/PropertyDetailScreen.dart';
 
+import 'filter_screen.dart';
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -92,7 +94,12 @@ class _HomePageState extends State<HomeScreen> {
                     icon: const Icon(Icons.filter_alt_outlined,
                         color: Colors.white),
                     onPressed: () {
-                      // Add filter logic here
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const FilterScreen(),
+                        ),
+                      );
                     },
                   ),
                 ],
@@ -256,7 +263,7 @@ class _HomePageState extends State<HomeScreen> {
                                 onPressed: () {
                                   Navigator.of(context).push(
                                       MaterialPageRoute(builder: (context) {
-                                    return PropertyDetailscreen();
+                                    return const PropertyDetailscreen();
                                   }));
                                 },
                                 child: Text(
