@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rent_app/Screens/PropertyDetailScreen.dart';
+import 'package:rent_app/Screens/filter_screen.dart';
 import 'package:rent_app/Screens/profile_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -93,7 +94,9 @@ class _HomePageState extends State<HomeScreen> {
                     icon: const Icon(Icons.filter_alt_outlined,
                         color: Colors.white),
                     onPressed: () {
-                      // Add filter logic here
+                      Navigator.of(context).push(MaterialPageRoute(builder: (context){
+                        return FilterScreen();
+                      }));
                     },
                   ),
                 ],
