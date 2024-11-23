@@ -17,309 +17,310 @@ class _HomePageState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xff015c4e),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(15.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Custom Header Section
-              Padding(
-                padding: const EdgeInsets.only(top: 20.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    // Title Section
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Find Your',
-                          style: GoogleFonts.montserrat(
-                            fontSize: 22,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.white,
+    return GestureDetector(
+      onTap: () {
+        FocusScope.of(context).unfocus();
+      },
+      child: Scaffold(
+        backgroundColor: const Color(0xff015c4e),
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Custom Header Section
+                Padding(
+                  padding: const EdgeInsets.only(top: 20.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      // Title Section
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Find Your',
+                            style: GoogleFonts.montserrat(
+                              fontSize: 22,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.white,
+                            ),
                           ),
-                        ),
-                        Text(
-                          'Dream House',
-                          style: GoogleFonts.montserrat(
-                            fontSize: 22,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.white,
+                          Text(
+                            'Dream House',
+                            style: GoogleFonts.montserrat(
+                              fontSize: 22,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.white,
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                    // Notification Icon
-                    IconButton(
-                      icon: const Icon(
-                        Icons.notifications_none,
-                        color: Colors.white,
-                        size: 28,
+                        ],
                       ),
+                      // Notification Icon
+                      IconButton(
+                        icon: const Icon(
+                          Icons.notifications_none,
+                          color: Colors.white,
+                          size: 28,
+                        ),
+                        onPressed: () {
+                          // Add notification logic here
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 20),
+
+                // Search Bar and Filters
+                Row(
+                  children: [
+                    Expanded(
+                      child: TextField(
+                        decoration: InputDecoration(
+                          filled: true,
+                          fillColor: Colors.white,
+                          hintText: 'Search',
+                          prefixIcon: const Icon(
+                            Icons.search_outlined,
+                            color: Colors.blueGrey,
+                          ),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(30),
+                            borderSide: BorderSide.none,
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+                    IconButton(
+                      icon: const Icon(Icons.filter_alt_outlined,
+                          color: Colors.white),
                       onPressed: () {
-                        // Add notification logic here
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const FilterScreen(),
+                          ),
+                        );
                       },
                     ),
                   ],
                 ),
-              ),
-              const SizedBox(height: 20),
+                const SizedBox(height: 20),
 
-              // Search Bar and Filters
-              Row(
-                children: [
-                  Expanded(
-                    child: TextField(
-                      decoration: InputDecoration(
-                        filled: true,
-                        fillColor: Colors.white,
-                        hintText: 'Search',
-                        prefixIcon: const Icon(
-                          Icons.search_outlined,
-                          color: Colors.blueGrey,
-                        ),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(30),
-                          borderSide: BorderSide.none,
-                        ),
+                // Category Chips
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal, // Allow horizontal scrolling
+                  child: Row(
+                    children: [
+                      buildCategoryChip('Bachelor'),
+                      const SizedBox(width: 10), // Add spacing between chips
+                      buildCategoryChip('Family'),
+                      const SizedBox(width: 10),
+                      buildCategoryChip('Office'),
+                      const SizedBox(width: 10),
+                      buildCategoryChip('Sublet'),
+                    ],
+                  ),
+                ),
+
+                const SizedBox(height: 20),
+
+                // Recent Section
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text(
+                      'Recent',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
                       ),
                     ),
-                  ),
-                  const SizedBox(width: 10),
-                  IconButton(
-                    icon: const Icon(Icons.filter_alt_outlined,
-                        color: Colors.white),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const FilterScreen(),
-                        ),
-                      );
-                    },
-                  ),
-                ],
-              ),
-              const SizedBox(height: 20),
-
-              // Category Chips
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal, // Allow horizontal scrolling
-                child: Row(
-                  children: [
-                    buildCategoryChip('Bachelor'),
-                    const SizedBox(width: 10), // Add spacing between chips
-                    buildCategoryChip('Family'),
-                    const SizedBox(width: 10),
-                    buildCategoryChip('Office'),
-                    const SizedBox(width: 10),
-                    buildCategoryChip('Sublet'),
+                    TextButton(onPressed: () {}, child: const Text('View All',
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),),)
                   ],
                 ),
-              ),
+                const SizedBox(height: 10),
 
-              const SizedBox(height: 20),
+                // Recent House Cards
+                SizedBox(
+                  height: 150,
+                  child: ListView(
+                    scrollDirection: Axis.horizontal,
+                    children: const [
+                      HouseCard(
+                        imageUrl:
+                            'https://img.freepik.com/free-photo/luxury-pool-villa-spectacular-contemporary-design-digital-art-real-estate-home-house-property-ge_1258-150765.jpg',
+                        title: 'Dreamsville House',
+                        price: '\$3,850',
+                        location: 'Jl. Sultan Iskandar Muda',
+                      ),
+                      SizedBox(width: 10),
+                      HouseCard(
+                        imageUrl:
+                            'https://img.freepik.com/free-photo/luxury-pool-villa-spectacular-contemporary-design-digital-art-real-estate-home-house-property-ge_1258-150749.jpg',
+                        title: 'Dream Haven',
+                        price: '\$4,200',
+                        location: 'Jl. Dream Boulevard',
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 20),
 
-              // Recent Section
-              const Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Recent',
-                    style: TextStyle(
+                // Best from You Section
+                Padding(
+                  padding: const EdgeInsets.only(left: 8.0),
+                  child: Text(
+                    'Best from you',
+                    style: GoogleFonts.montserrat(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
                     ),
                   ),
-                  Text(
-                    'View All',
-                    style: TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.w400,
-                      color: Colors.white,
-                    ),
+                ),
+                const SizedBox(height: 10),
+                Card(
+                  elevation: 12,
+                  margin: const EdgeInsets.only(left: 10, right: 10),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
                   ),
-                ],
-              ),
-              const SizedBox(height: 10),
-
-              // Recent House Cards
-              SizedBox(
-                height: 150,
-                child: ListView(
-                  scrollDirection: Axis.horizontal,
-                  children: const [
-                    HouseCard(
-                      imageUrl:
-                          'https://img.freepik.com/free-photo/luxury-pool-villa-spectacular-contemporary-design-digital-art-real-estate-home-house-property-ge_1258-150765.jpg',
-                      title: 'Dreamsville House',
-                      price: '\$3,850',
-                      location: 'Jl. Sultan Iskandar Muda',
-                    ),
-                    SizedBox(width: 10),
-                    HouseCard(
-                      imageUrl:
-                          'https://img.freepik.com/free-photo/luxury-pool-villa-spectacular-contemporary-design-digital-art-real-estate-home-house-property-ge_1258-150749.jpg',
-                      title: 'Dream Haven',
-                      price: '\$4,200',
-                      location: 'Jl. Dream Boulevard',
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 20),
-
-              // Best from You Section
-              Padding(
-                padding: const EdgeInsets.only(left: 8.0),
-                child: Text(
-                  'Best from you',
-                  style: GoogleFonts.montserrat(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-              const SizedBox(height: 10),
-              Card(
-                elevation: 12,
-                margin: const EdgeInsets.only(left: 10, right: 10),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // Image Section
-                    ClipRRect(
-                      borderRadius: const BorderRadius.vertical(
-                        top: Radius.circular(10),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // Image Section
+                      ClipRRect(
+                        borderRadius: const BorderRadius.vertical(
+                          top: Radius.circular(10),
+                        ),
+                        child: Image.network(
+                          'https://img.freepik.com/free-photo/luxurious-villa-with-modern-architectural-design_23-2151694017.jpg',
+                          height: 200,
+                          width: double.infinity,
+                          fit: BoxFit.cover,
+                        ),
                       ),
-                      child: Image.network(
-                        'https://img.freepik.com/free-photo/luxurious-villa-with-modern-architectural-design_23-2151694017.jpg',
-                        height: 200,
-                        width: double.infinity,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                    // Details Section
-                    Padding(
-                      padding: const EdgeInsets.all(20.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Luxury Retreat',
-                            style: GoogleFonts.montserrat(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black,
+                      // Details Section
+                      Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Luxury Retreat',
+                              style: GoogleFonts.montserrat(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black,
+                              ),
                             ),
-                          ),
-                          const SizedBox(height: 8),
-                          Row(
-                            children: [
-                              const Icon(Icons.location_on_outlined,
-                                  color: Colors.grey, size: 16),
-                              const SizedBox(width: 4),
-                              Text(
-                                'Jl. Sunset Paradise',
-                                style: GoogleFonts.montserrat(
-                                  fontSize: 14,
-                                  color: Colors.grey[600],
-                                ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 12),
-                          // Price, Monthly Rent, and Button in Row
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                '\$5,300',
-                                style: GoogleFonts.montserrat(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                  color: const Color(0xff015c4e),
-                                ),
-                              ),
-                              Text(
-                                'Monthly Rent',
-                                style: GoogleFonts.montserrat(
-                                  fontSize: 12,
-
-                                  color: const Color(0xff015c4e),
-                                ),
-                              ),
-                              ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: const Color(0xff97be04),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(20),
-                                  ),
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 16, vertical: 8),
-                                ),
-                                onPressed: () {
-                                  Navigator.of(context).push(
-                                      MaterialPageRoute(builder: (context) {
-                                    return const PropertyDetailscreen();
-                                  }));
-                                },
-                                child: Text(
-                                  'See Details',
+                            const SizedBox(height: 8),
+                            Row(
+                              children: [
+                                const Icon(Icons.location_on_outlined,
+                                    color: Colors.grey, size: 16),
+                                const SizedBox(width: 4),
+                                Text(
+                                  'Jl. Sunset Paradise',
                                   style: GoogleFonts.montserrat(
                                     fontSize: 14,
+                                    color: Colors.grey[600],
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 12),
+                            // Price, Monthly Rent, and Button in Row
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  '\$5,300',
+                                  style: GoogleFonts.montserrat(
+                                    fontSize: 16,
                                     fontWeight: FontWeight.bold,
                                     color: const Color(0xff015c4e),
                                   ),
                                 ),
-                              ),
-                            ],
-                          ),
-                        ],
+                                Text(
+                                  'Monthly Rent',
+                                  style: GoogleFonts.montserrat(
+                                    fontSize: 12,
+
+                                    color: const Color(0xff015c4e),
+                                  ),
+                                ),
+                                ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: const Color(0xff97be04),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(20),
+                                    ),
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 16, vertical: 8),
+                                  ),
+                                  onPressed: () {
+                                    Navigator.of(context).push(
+                                        MaterialPageRoute(builder: (context) {
+                                      return const PropertyDetailscreen();
+                                    }));
+                                  },
+                                  child: Text(
+                                    'See Details',
+                                    style: GoogleFonts.montserrat(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.bold,
+                                      color: const Color(0xff015c4e),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-              )
-            ],
+                    ],
+                  ),
+                )
+              ],
+            ),
           ),
         ),
-      ),
 
-      // Floating Bottom Navigation Bar
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.all(30.0),
-        child: Container(
-          height: 70,
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(40),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.2),
-                spreadRadius: 2,
-                blurRadius: 10,
-              ),
-            ],
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              _buildNavItem(Icons.home_max_outlined, 0),
-              _buildNavItem(Icons.favorite_border, 1),
-              _buildNavItem(Icons.add_circle_outline, 2),
-              _buildNavItem(Icons.chat_bubble_outline_rounded, 3),
-              _buildNavItem(Icons.person_outline, 4),
-            ],
+        // Floating Bottom Navigation Bar
+        bottomNavigationBar: Padding(
+          padding: const EdgeInsets.all(30.0),
+          child: Container(
+            height: 70,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(40),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.2),
+                  spreadRadius: 2,
+                  blurRadius: 10,
+                ),
+              ],
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                _buildNavItem(Icons.home_max_outlined, 0),
+                _buildNavItem(Icons.favorite_border, 1),
+                _buildNavItem(Icons.add_circle_outline, 2),
+                _buildNavItem(Icons.chat_bubble_outline_rounded, 3),
+                _buildNavItem(Icons.person_outline, 4),
+              ],
+            ),
           ),
         ),
       ),
