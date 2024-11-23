@@ -216,7 +216,7 @@ class _PropertyDetailscreenState extends State<PropertyDetailscreen> {
                                         decoration: BoxDecoration(
                                             color: Color(0xff49887f),
                                             borderRadius:
-                                                BorderRadius.circular(5)),
+                                            BorderRadius.circular(5)),
                                         child: Icon(
                                           Icons.bed,
                                           color: Colors.white,
@@ -247,7 +247,7 @@ class _PropertyDetailscreenState extends State<PropertyDetailscreen> {
                                         decoration: BoxDecoration(
                                             color: Color(0xff49887f),
                                             borderRadius:
-                                                BorderRadius.circular(5)),
+                                            BorderRadius.circular(5)),
                                         child: Icon(
                                           Icons.bathtub,
                                           color: Colors.white,
@@ -278,7 +278,7 @@ class _PropertyDetailscreenState extends State<PropertyDetailscreen> {
                                         decoration: BoxDecoration(
                                             color: Color(0xff49887f),
                                             borderRadius:
-                                                BorderRadius.circular(5)),
+                                            BorderRadius.circular(5)),
                                         child: Icon(
                                           Icons.directions_car_filled,
                                           color: Colors.white,
@@ -352,13 +352,13 @@ class _PropertyDetailscreenState extends State<PropertyDetailscreen> {
                                   // Optional padding for better spacing
                                   child: GestureDetector(onTap: () async {
 
-                                      final Uri url = Uri(
-                                        scheme: "tel",
-                                        path: "452 869 8569",
-                                      );
-                                      if(await canLaunchUrl(url)){
+                                    final Uri url = Uri(
+                                      scheme: "tel",
+                                      path: "452 869 8569",
+                                    );
+                                    if(await canLaunchUrl(url)){
                                       await launchUrl(url);}
-                                      else{print("cannot launch this url");}
+                                    else{print("cannot launch this url");}
 
                                   },child: Icon(Icons.phone, color: Colors.white)),
                                 ),
@@ -374,12 +374,12 @@ class _PropertyDetailscreenState extends State<PropertyDetailscreen> {
                                   // Optional padding for better spacing
                                   child: GestureDetector(
                                     child:
-                                        Icon(Icons.chat, color: Colors.white),
+                                    Icon(Icons.chat, color: Colors.white),
                                     onTap: () {
                                       Navigator.of(context).push(
                                           MaterialPageRoute(builder: (context) {
-                                        return ChatScreen(isOwner: true);
-                                      }));
+                                            return ChatScreen(isOwner: true);
+                                          }));
                                     },
                                   ),
                                 ),
@@ -395,7 +395,7 @@ class _PropertyDetailscreenState extends State<PropertyDetailscreen> {
                               child: Text(
                                 'Map showing location of property',
                                 style:
-                                    GoogleFonts.montserrat(color: Colors.white),
+                                GoogleFonts.montserrat(color: Colors.white),
                               ),
                             ),
                           ),
@@ -459,7 +459,7 @@ class _PropertyDetailscreenState extends State<PropertyDetailscreen> {
                                     content: RichText(
                                       text: TextSpan(
                                         text:
-                                            'To access locked information, it costs ',
+                                        'To access locked information, it costs ',
                                         style: GoogleFonts.montserrat(
                                           fontSize: 14,
                                           color: Color(0xff015c4e),
@@ -475,7 +475,7 @@ class _PropertyDetailscreenState extends State<PropertyDetailscreen> {
                                           ),
                                           TextSpan(
                                             text:
-                                                '                                             ',
+                                            '                                             ',
                                             style: GoogleFonts.montserrat(
                                               fontSize: 14,
                                               color: Color(0xff015c4e),
@@ -483,7 +483,7 @@ class _PropertyDetailscreenState extends State<PropertyDetailscreen> {
                                           ),
                                           TextSpan(
                                             text:
-                                                ' Upon unlocking, you will receive the property address and owner details.',
+                                            ' Upon unlocking, you will receive the property address and owner details.',
                                             style: GoogleFonts.montserrat(
                                               fontSize: 14,
                                               color: Color(0xff015c4e),
@@ -495,13 +495,13 @@ class _PropertyDetailscreenState extends State<PropertyDetailscreen> {
                                     actions: [
                                       Row(
                                         mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
+                                        MainAxisAlignment.spaceEvenly,
                                         children: [
                                           Container(
                                             width: 80,
                                             decoration: BoxDecoration(
                                                 borderRadius:
-                                                    BorderRadius.circular(5),
+                                                BorderRadius.circular(5),
                                                 color: Color(0xffd6fff6)),
                                             child: TextButton(
                                               onPressed: () {
@@ -520,14 +520,14 @@ class _PropertyDetailscreenState extends State<PropertyDetailscreen> {
                                             width: 80,
                                             decoration: BoxDecoration(
                                               borderRadius:
-                                                  BorderRadius.circular(5),
+                                              BorderRadius.circular(5),
                                               color: Color(0xff015c4e),
                                             ),
                                             child: TextButton(
                                               onPressed: () {
                                                 setState(() {
                                                   isUnlocked =
-                                                      true; // Unlock the contact
+                                                  true; // Unlock the contact
                                                 });
                                                 Navigator.pop(context);
                                               },

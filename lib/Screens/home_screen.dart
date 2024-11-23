@@ -146,7 +146,7 @@ class _HomePageState extends State<HomeScreen> {
                   children: const [
                     HouseCard(
                       imageUrl:
-                          'https://img.freepik.com/free-photo/luxury-pool-villa-spectacular-contemporary-design-digital-art-real-estate-home-house-property-ge_1258-150765.jpg',
+                      'https://img.freepik.com/free-photo/luxury-pool-villa-spectacular-contemporary-design-digital-art-real-estate-home-house-property-ge_1258-150765.jpg',
                       title: 'Dreamsville House',
                       price: '\$3,850',
                       location: 'Jl. Sultan Iskandar Muda',
@@ -154,7 +154,7 @@ class _HomePageState extends State<HomeScreen> {
                     SizedBox(width: 10),
                     HouseCard(
                       imageUrl:
-                          'https://img.freepik.com/free-photo/luxury-pool-villa-spectacular-contemporary-design-digital-art-real-estate-home-house-property-ge_1258-150749.jpg',
+                      'https://img.freepik.com/free-photo/luxury-pool-villa-spectacular-contemporary-design-digital-art-real-estate-home-house-property-ge_1258-150749.jpg',
                       title: 'Dream Haven',
                       price: '\$4,200',
                       location: 'Jl. Dream Boulevard',
@@ -259,8 +259,8 @@ class _HomePageState extends State<HomeScreen> {
                                 onPressed: () {
                                   Navigator.of(context).push(
                                       MaterialPageRoute(builder: (context) {
-                                    return PropertyDetailscreen();
-                                  }));
+                                        return PropertyDetailscreen();
+                                      }));
                                 },
                                 child: Text(
                                   'See Details',
@@ -333,7 +333,7 @@ class _HomePageState extends State<HomeScreen> {
           ),
         ),
         backgroundColor:
-            isSelected ? const Color(0xff97be04) : const Color(0xff015c4e),
+        isSelected ? const Color(0xff97be04) : const Color(0xff015c4e),
       ),
     );
   }
@@ -348,13 +348,13 @@ class _HomePageState extends State<HomeScreen> {
         });
 
         if (index == 4) {
-      // If the person icon is tapped, navigate to ProfileScreen
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => ProfileScreen()),
-      );
-    }
-  },
+          // If the person icon is tapped, navigate to ProfileScreen
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => ProfileScreen()),
+          );
+        }
+      },
       child: Container(
         width: 50,
         height: 50,
