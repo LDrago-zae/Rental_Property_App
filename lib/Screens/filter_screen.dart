@@ -63,13 +63,19 @@ class _FilterScreenState extends State<FilterScreen> {
               ),
             ),
             const SizedBox(height: 10),
-            Row(
-              children: [
-                buildPropertyTypeChip('Bachelor'),
-                buildPropertyTypeChip('Family'),
-                buildPropertyTypeChip('Office'),
-                buildPropertyTypeChip('Sublet'),
-              ],
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal, // Allow horizontal scrolling
+              child: Row(
+                children: [
+                  buildPropertyTypeChip('Bachelor'),
+                  const SizedBox(width: 10), // Add spacing between chips
+                  buildPropertyTypeChip('Family'),
+                  const SizedBox(width: 10),
+                  buildPropertyTypeChip('Office'),
+                  const SizedBox(width: 10),
+                  buildPropertyTypeChip('Sublet'),
+                ],
+              ),
             ),
             const SizedBox(height: 20),
 
@@ -225,20 +231,16 @@ class _FilterScreenState extends State<FilterScreen> {
           selectedPropertyType = category;
         });
       },
-      child: Container(
-        margin: const EdgeInsets.only(right: 10),
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-        decoration: BoxDecoration(
-          color: isSelected ? const Color(0xff97be04) : const Color(0xff015c4e),
-          borderRadius: BorderRadius.circular(20),
-        ),
-        child: Text(
+      child: Chip(
+        label: Text(
           category,
           style: GoogleFonts.montserrat(
+            color: isSelected ? Colors.white : Colors.white70,
             fontWeight: FontWeight.bold,
-            color: Colors.white,
           ),
         ),
+        backgroundColor:
+        isSelected ? const Color(0xff97be04) : const Color(0xff015c4e),
       ),
     );
   }

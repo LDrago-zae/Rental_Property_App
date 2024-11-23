@@ -107,15 +107,21 @@ class _HomePageState extends State<HomeScreen> {
               const SizedBox(height: 20),
 
               // Category Chips
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  buildCategoryChip('Bachelor'),
-                  buildCategoryChip('Family'),
-                  buildCategoryChip('Office'),
-                  buildCategoryChip('Sublet'),
-                ],
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal, // Allow horizontal scrolling
+                child: Row(
+                  children: [
+                    buildCategoryChip('Bachelor'),
+                    const SizedBox(width: 10), // Add spacing between chips
+                    buildCategoryChip('Family'),
+                    const SizedBox(width: 10),
+                    buildCategoryChip('Office'),
+                    const SizedBox(width: 10),
+                    buildCategoryChip('Sublet'),
+                  ],
+                ),
               ),
+
               const SizedBox(height: 20),
 
               // Recent Section
@@ -247,7 +253,8 @@ class _HomePageState extends State<HomeScreen> {
                               Text(
                                 'Monthly Rent',
                                 style: GoogleFonts.montserrat(
-                                  fontSize: 14,
+                                  fontSize: 12,
+
                                   color: const Color(0xff015c4e),
                                 ),
                               ),
