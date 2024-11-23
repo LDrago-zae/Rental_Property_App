@@ -2,6 +2,10 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rent_app/Screens/chatscreen.dart';
+import 'package:rent_app/Screens/profile_screen.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+
 
 class PropertyDetailscreen extends StatefulWidget {
   const PropertyDetailscreen({super.key});
@@ -13,6 +17,7 @@ class PropertyDetailscreen extends StatefulWidget {
 class _PropertyDetailscreenState extends State<PropertyDetailscreen> {
   bool isUnlocked = false;
   bool isReadMore = false;
+
 
   @override
   Widget build(BuildContext context) {
@@ -345,7 +350,17 @@ class _PropertyDetailscreenState extends State<PropertyDetailscreen> {
                                   ),
                                   padding: const EdgeInsets.all(4),
                                   // Optional padding for better spacing
-                                  child: Icon(Icons.phone, color: Colors.white),
+                                  child: GestureDetector(onTap: () async {
+
+                                      final Uri url = Uri(
+                                        scheme: "tel",
+                                        path: "452 869 8569",
+                                      );
+                                      if(await canLaunchUrl(url)){
+                                      await launchUrl(url);}
+                                      else{print("cannot launch this url");}
+
+                                  },child: Icon(Icons.phone, color: Colors.white)),
                                 ),
                                 const SizedBox(width: 8),
                                 Container(

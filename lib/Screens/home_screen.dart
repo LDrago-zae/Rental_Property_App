@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rent_app/Screens/PropertyDetailScreen.dart';
+import 'package:rent_app/Screens/profile_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -100,14 +101,16 @@ class _HomePageState extends State<HomeScreen> {
               const SizedBox(height: 20),
 
               // Category Chips
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  buildCategoryChip('Bachelor'),
-                  buildCategoryChip('Family'),
-                  buildCategoryChip('Office'),
-                  buildCategoryChip('Sublet'),
-                ],
+              SingleChildScrollView( scrollDirection: Axis.horizontal,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    buildCategoryChip('Bachelor'),
+                    buildCategoryChip('Family'),
+                    buildCategoryChip('Office'),
+                    buildCategoryChip('Sublet'),
+                  ],
+                ),
               ),
               const SizedBox(height: 20),
 
@@ -343,7 +346,15 @@ class _HomePageState extends State<HomeScreen> {
         setState(() {
           _selectedIndex = index;
         });
-      },
+
+        if (index == 4) {
+      // If the person icon is tapped, navigate to ProfileScreen
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => ProfileScreen()),
+      );
+    }
+  },
       child: Container(
         width: 50,
         height: 50,
