@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:rent_app/Screens/results_screen.dart';
 
 class FilterScreen extends StatefulWidget {
   const FilterScreen({super.key});
@@ -215,7 +216,12 @@ class _FilterScreenState extends State<FilterScreen> {
               Center(
                 child: ElevatedButton(
                   onPressed: () {
-                    // Apply filter logic here
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const ResultsScreen(),
+                      ),
+                    );
                   },
                   style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(
