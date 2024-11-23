@@ -40,7 +40,21 @@ class _FilterScreenState extends State<FilterScreen> {
           actions: [
             TextButton(
               onPressed: () {
-                // Reset filter logic here
+                setState(
+                  () {
+                    selectedPropertyType = ''; // Default property type
+                    selectedFeatures = [
+                      false,
+                      false,
+                      false,
+                      false
+                    ]; // Deselect all features
+                    selectedBedrooms = 0; // Default bedrooms
+                    selectedBathrooms = 0; // Default bathrooms
+                    // Clear price range inputs if needed (optional)
+                    // If you have TextEditingControllers for price range, reset them here
+                  },
+                );
               },
               child: Text(
                 'Reset',
@@ -49,7 +63,7 @@ class _FilterScreenState extends State<FilterScreen> {
                   color: Colors.white,
                 ),
               ),
-            )
+            ),
           ],
         ),
         body: SingleChildScrollView(
@@ -204,11 +218,11 @@ class _FilterScreenState extends State<FilterScreen> {
                     // Apply filter logic here
                   },
                   style: ElevatedButton.styleFrom(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 80, vertical: 15),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 80, vertical: 15),
                     backgroundColor: const Color(0xff97be04),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
+                      borderRadius: BorderRadius.circular(10),
                     ),
                   ),
                   child: Text(
@@ -245,7 +259,7 @@ class _FilterScreenState extends State<FilterScreen> {
           ),
         ),
         backgroundColor:
-        isSelected ? const Color(0xff97be04) : const Color(0xff015c4e),
+            isSelected ? const Color(0xff97be04) : const Color(0xff015c4e),
       ),
     );
   }
