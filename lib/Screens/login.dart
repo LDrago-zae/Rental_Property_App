@@ -37,6 +37,10 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
+    // Dynamic padding values based on screen size
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -45,12 +49,18 @@ class _LoginState extends State<Login> {
         backgroundColor: Colors.white,
         body: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.all(10.0),
+            padding: EdgeInsets.symmetric(
+              horizontal: screenWidth * 0.05, // 5% of screen width
+              vertical: screenHeight * 0.02, // 2% of screen height
+            ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(top: 60, right: 30),
+                  padding: EdgeInsets.only(
+                    top: screenHeight * 0.08, // 8% of screen height
+                    right: screenWidth * 0.08, // 8% of screen width
+                  ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -62,25 +72,21 @@ class _LoginState extends State<Login> {
                           backgroundColor: Colors.transparent,
                         ),
                       ),
-                      const SizedBox(width: 0),
+                      const SizedBox(width: 8),
                       RichText(
                         text: TextSpan(
                           style: GoogleFonts.montserrat(
-                            fontSize: 35,
+                            fontSize: screenWidth * 0.08,
                             fontWeight: FontWeight.w700,
                           ),
-                          children: [
+                          children: const [
                             TextSpan(
                               text: 'Home',
-                              style: GoogleFonts.montserrat(
-                                color: const Color(0xff015c4e),
-                              ),
+                              style: TextStyle(color: Color(0xff015c4e)),
                             ),
                             TextSpan(
                               text: 'Rent',
-                              style: GoogleFonts.montserrat(
-                                color: const Color(0xff97be04),
-                              ),
+                              style: TextStyle(color: Color(0xff97be04)),
                             ),
                           ],
                         ),
@@ -88,18 +94,18 @@ class _LoginState extends State<Login> {
                     ],
                   ),
                 ),
-                const SizedBox(height: 40),
+                SizedBox(height: screenHeight * 0.05),
                 Text(
                   "Sign in to your account",
                   style: GoogleFonts.montserrat(
                     color: const Color(0xff015c4e),
-                    fontSize: 25,
+                    fontSize: screenWidth * 0.06,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                const SizedBox(height: 40),
+                SizedBox(height: screenHeight * 0.05),
                 Padding(
-                  padding: const EdgeInsets.only(right: 250),
+                  padding: EdgeInsets.only(right: screenWidth * 0.65),
                   child: Text(
                     "Phone",
                     style: GoogleFonts.montserrat(
@@ -108,11 +114,9 @@ class _LoginState extends State<Login> {
                     ),
                   ),
                 ),
-                const SizedBox(
-                  height: 10,
-                ),
+                SizedBox(height: screenHeight * 0.01),
                 Padding(
-                  padding: const EdgeInsets.only(right: 40, left: 40),
+                  padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
                   child: Row(
                     children: [
                       Container(
@@ -170,11 +174,9 @@ class _LoginState extends State<Login> {
                     ],
                   ),
                 ),
-                const SizedBox(
-                  height: 10,
-                ),
+                SizedBox(height: screenHeight * 0.02),
                 Padding(
-                  padding: const EdgeInsets.only(right: 230),
+                  padding: EdgeInsets.only(right: screenWidth * 0.6),
                   child: Text(
                     "Password",
                     style: GoogleFonts.montserrat(
@@ -183,11 +185,9 @@ class _LoginState extends State<Login> {
                     ),
                   ),
                 ),
-                const SizedBox(
-                  height: 10,
-                ),
+                SizedBox(height: screenHeight * 0.01),
                 Padding(
-                  padding: const EdgeInsets.only(right: 40, left: 40),
+                  padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
                   child: Container(
                     decoration: BoxDecoration(
                       color: Colors.black12,
@@ -212,17 +212,20 @@ class _LoginState extends State<Login> {
                     ),
                   ),
                 ),
-                const SizedBox(height: 20),
+                SizedBox(height: screenHeight * 0.03),
                 ElevatedButton(
                   onPressed: () {
                     signIn(selectedCountryCode, phoneController.text,
                         passwordController.text);
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => const HomeScreen()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const HomeScreen()));
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xff97be04),
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 100, vertical: 15),
+                    padding: EdgeInsets.symmetric(
+                        horizontal: screenWidth * 0.09, vertical: 15),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8),
                     ),
@@ -236,7 +239,7 @@ class _LoginState extends State<Login> {
                     ),
                   ),
                 ),
-                const SizedBox(height: 20),
+                SizedBox(height: screenHeight * 0.03),
                 Text(
                   'or Sign In with',
                   style: GoogleFonts.montserrat(
@@ -244,7 +247,7 @@ class _LoginState extends State<Login> {
                     fontSize: 16,
                   ),
                 ),
-                const SizedBox(height: 20),
+                SizedBox(height: screenHeight * 0.02),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -259,7 +262,7 @@ class _LoginState extends State<Login> {
                     }),
                   ],
                 ),
-                const SizedBox(height: 25),
+                SizedBox(height: screenHeight * 0.04),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -287,7 +290,7 @@ class _LoginState extends State<Login> {
                     ),
                   ],
                 ),
-                const SizedBox(height: 18),
+                SizedBox(height: screenHeight * 0.03),
                 GestureDetector(
                   onTap: () {
                     signInAsGuest(context);

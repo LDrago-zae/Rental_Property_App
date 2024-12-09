@@ -52,20 +52,26 @@ class TermsScreen extends StatelessWidget {
             const SizedBox(
               height: 30,
             ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const ViewConnects(),
+            Center(
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xff97be04),
+                ),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const ViewConnects(),
+                    ),
+                  );
+                },
+                child: Text(
+                  'Accept & Continue',
+                  style: GoogleFonts.montserrat(
+                    fontWeight: FontWeight.w700,
+                    fontSize: 20,
+                    color: const Color(0xff015c4e),
                   ),
-                );
-              },
-              child: Text(
-                'Accept & Continue',
-                style: GoogleFonts.montserrat(
-                  fontWeight: FontWeight.w500,
-                  fontSize: 25,
                 ),
               ),
             ),
