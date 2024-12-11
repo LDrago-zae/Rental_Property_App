@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:rent_app/services/stripe_service.dart';
 
 class ViewConnects extends StatefulWidget {
   const ViewConnects({super.key});
@@ -10,8 +9,116 @@ class ViewConnects extends StatefulWidget {
 }
 
 class _ViewConnectsState extends State<ViewConnects> {
-  // Add a variable to hold the selected dropdown value
   String? _selectedValue = '50 for \$2.00';
+  String? _selectedPaymentMethod =
+      "Google Pay"; // Default selected payment method
+
+  // Promo Code TextField Controller
+  final TextEditingController _promoCodeController = TextEditingController();
+
+  // Function to show the payment method popup
+  void _showPaymentMethodPopup(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      isScrollControlled: true,
+      builder: (BuildContext context) {
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              // Handle Bar
+              Container(
+                height: 4,
+                width: 50,
+                decoration: BoxDecoration(
+                  color: Colors.grey[300],
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+              const SizedBox(height: 20),
+              Text(
+                'Payment Method',
+                style: GoogleFonts.montserrat(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 18,
+                  color: Colors.black87,
+                ),
+              ),
+              const SizedBox(height: 20),
+              // Payment Method Options
+              ...[
+                {"label": "Google Pay", "icon": Icons.g_mobiledata},
+                {"label": "PayPal", "icon": Icons.payment},
+                {"label": "Apple Pay", "icon": Icons.apple},
+                {"label": "MasterCard", "icon": Icons.credit_card},
+                {"label": "Stripe", "icon": Icons.payment},
+                {"label": "Visa", "icon": Icons.credit_card},
+              ].map(
+                (method) => RadioListTile<String>(
+                  value: method["label"] as String,
+                  groupValue: _selectedPaymentMethod,
+                  title: Row(
+                    children: [
+                      CircleAvatar(
+                        backgroundColor: Colors.grey[200],
+                        radius: 20,
+                        child: Icon(
+                          method["icon"] as IconData,
+                          color: Colors.black54,
+                          size: 20,
+                        ),
+                      ),
+                      const SizedBox(width: 10),
+                      Text(
+                        method["label"] as String,
+                        style: GoogleFonts.montserrat(
+                          fontSize: 16,
+                          color: Colors.black87,
+                        ),
+                      ),
+                    ],
+                  ),
+                  onChanged: (value) {
+                    setState(() {
+                      _selectedPaymentMethod = value;
+                    });
+                  },
+                ),
+              ),
+              const SizedBox(height: 20),
+              // Confirm Order Button
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pop(context); // Close the popup
+                  // Handle payment based on the selected payment method
+                  print('Selected Payment Method: $_selectedPaymentMethod');
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFF6DBF47),
+                  padding: const EdgeInsets.symmetric(vertical: 15),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+                child: Text(
+                  'Confirm Order',
+                  style: GoogleFonts.montserrat(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 16,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,15 +153,9 @@ class _ViewConnectsState extends State<ViewConnects> {
             ),
           ),
         ),
-        resizeToAvoidBottomInset:
-            true, // Ensures the body is resized when the keyboard appears
+        resizeToAvoidBottomInset: true,
         body: SingleChildScrollView(
-          // Wraps the body in a scroll view
-          padding: const EdgeInsets.only(
-            left: 20,
-            top: 20,
-            right: 20,
-          ),
+          padding: const EdgeInsets.only(left: 20, top: 20, right: 20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -106,7 +207,7 @@ class _ViewConnectsState extends State<ViewConnects> {
                 ),
                 child: DropdownButton<String>(
                   isExpanded: true,
-                  value: _selectedValue, // Use the selected value
+                  value: _selectedValue,
                   items: <String>[
                     '50 for \$2.00',
                     '100 for \$4.00',
@@ -119,7 +220,7 @@ class _ViewConnectsState extends State<ViewConnects> {
                   }).toList(),
                   onChanged: (String? newValue) {
                     setState(() {
-                      _selectedValue = newValue; // Update the selected value
+                      _selectedValue = newValue;
                     });
                   },
                 ),
@@ -151,23 +252,17 @@ class _ViewConnectsState extends State<ViewConnects> {
                   border: Border.all(color: Colors.grey),
                 ),
                 child: TextField(
+                  controller: _promoCodeController,
                   decoration: InputDecoration(
                     hintText: 'Enter code',
                     border: InputBorder.none,
                     suffixIcon: IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        _promoCodeController.clear(); // Clear the input field
+                      },
                       icon: const Icon(Icons.close),
                     ),
                   ),
-                ),
-              ),
-              const SizedBox(height: 10),
-              Text(
-                'Invalid promo code. Please try again.',
-                style: GoogleFonts.montserrat(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w400,
-                  color: Colors.red,
                 ),
               ),
               const SizedBox(height: 30),
@@ -194,7 +289,7 @@ class _ViewConnectsState extends State<ViewConnects> {
                   ),
                   ElevatedButton(
                     onPressed: () {
-                      StripeService.instance.makePayment();
+                      _showPaymentMethodPopup(context); // Show the popup
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFF6DBF47),
