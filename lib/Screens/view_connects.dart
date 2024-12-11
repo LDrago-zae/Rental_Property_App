@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:rent_app/services/stripe_service.dart';
 
 class ViewConnects extends StatefulWidget {
   const ViewConnects({super.key});
@@ -192,7 +193,9 @@ class _ViewConnectsState extends State<ViewConnects> {
                     ),
                   ),
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      StripeService.instance.makePayment();
+                    },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFF6DBF47),
                       padding: const EdgeInsets.symmetric(
