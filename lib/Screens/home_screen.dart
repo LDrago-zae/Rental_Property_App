@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rent_app/Screens/PropertyDetailScreen.dart';
 import 'package:rent_app/Screens/filter_screen.dart';
+import 'package:rent_app/Screens/post_property.dart';
 import 'package:rent_app/Screens/profile_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -354,6 +355,15 @@ class _HomePageState extends State<HomeScreen> {
         setState(() {
           _selectedIndex = index;
         });
+
+        if (index == 2) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const PostPropertyScreen(),
+            ),
+          );
+        }
 
         if (index == 4) {
           // If the person icon is tapped, navigate to ProfileScreen

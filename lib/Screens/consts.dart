@@ -1,4 +1,4 @@
-const String stripPublishableKey =
+const String stripePublishableKey =
     'pk_test_51QUl9EFZGsDarYLqjHZqQMP6vvCJuyURKfRmcms5uPeEKDjBva6dD5tQovuBKCYvgeVTZis6xMnvaSAERoVu6deJ00gysJwMYO';
 const String stripeSecretKey =
     'sk_test_51QUl9EFZGsDarYLqXctvYY9I1N90rnEtmF9G7K3pjTbPWlX92g8xULKKbPO54fald6pf0I6n3471sMIfr5dJQaMZ00Xe2P7C04';

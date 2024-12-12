@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rent_app/Screens/editprofile_screen.dart';
 import 'package:rent_app/Screens/help_screen.dart';
+import 'package:rent_app/Screens/home_screen.dart';
 import 'package:rent_app/Screens/login.dart';
 import 'package:rent_app/Screens/terms_screen.dart';
 
@@ -28,7 +29,12 @@ class ProfileScreen extends StatelessWidget {
                 color: Colors.black,
               ),
               onPressed: () {
-                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const HomeScreen(),
+                  ),
+                );
               },
             ),
           ),

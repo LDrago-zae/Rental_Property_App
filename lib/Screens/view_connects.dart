@@ -1,5 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
+import 'package:rent_app/Screens/consts.dart';
+import 'package:rent_app/services/stripe_service.dart';
+
+Future<void> _setup() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  Stripe.publishableKey = stripePublishableKey;
+}
 
 class ViewConnects extends StatefulWidget {
   const ViewConnects({super.key});
@@ -12,8 +20,6 @@ class _ViewConnectsState extends State<ViewConnects> {
   String? _selectedValue = '50 for \$2.00';
   String? _selectedPaymentMethod =
       "Google Pay"; // Default selected payment method
-
-  // Promo Code TextField Controller
   final TextEditingController _promoCodeController = TextEditingController();
 
   // Function to show the payment method popup
@@ -92,14 +98,57 @@ class _ViewConnectsState extends State<ViewConnects> {
               const SizedBox(height: 20),
               // Confirm Order Button
               ElevatedButton(
-                onPressed: () {
+                onPressed: () async {
                   Navigator.pop(context); // Close the popup
-                  // Handle payment based on the selected payment method
-                  print('Selected Payment Method: $_selectedPaymentMethod');
+                  try {
+                    // Extract the amount from the dropdown (e.g., "50 for $2.00" -> "2.00")
+                    double amountInUsd =
+                        double.parse(_selectedValue!.split('\$').last);
+                    int amountInCents = (amountInUsd * 100)
+                        .toInt(); // Convert USD to cents for Stripe
+
+                    // Call StripeService to process the payment
+                    await StripeService.instance
+                        .makePayment(amount: amountInCents, currency: "usd");
+
+                    // Show the Stripe Payment Sheet
+                    await Stripe.instance.presentPaymentSheet();
+
+                    // Show success dialog
+                    showDialog(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                        title: const Text("Payment Successful"),
+                        content: const Text("Thank you for your purchase!"),
+                        actions: [
+                          TextButton(
+                            onPressed: () => Navigator.pop(context),
+                            child: const Text("OK"),
+                          ),
+                        ],
+                      ),
+                    );
+                  } catch (e) {
+                    // Show error dialog
+                    showDialog(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                        title: const Text("Payment Failed"),
+                        content: Text("An error occurred: $e"),
+                        actions: [
+                          TextButton(
+                            onPressed: () => Navigator.pop(context),
+                            child: const Text("OK"),
+                          ),
+                        ],
+                      ),
+                    );
+                  }
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFF6DBF47),
-                  padding: const EdgeInsets.symmetric(vertical: 15),
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
                   ),
@@ -109,7 +158,7 @@ class _ViewConnectsState extends State<ViewConnects> {
                   style: GoogleFonts.montserrat(
                     fontWeight: FontWeight.w600,
                     fontSize: 16,
-                    color: Colors.white,
+                    color: const Color(0xff015c4e),
                   ),
                 ),
               ),
@@ -131,31 +180,20 @@ class _ViewConnectsState extends State<ViewConnects> {
         appBar: AppBar(
           backgroundColor: const Color.fromARGB(255, 229, 243, 230),
           elevation: 0,
-          leading: Padding(
-            padding: const EdgeInsets.only(left: 20),
-            child: IconButton(
-              icon: const Icon(
-                Icons.arrow_back_ios,
-                color: Colors.white,
-                size: 25,
-              ),
-              onPressed: () => Navigator.pop(context),
-            ),
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
+            onPressed: () => Navigator.pop(context),
           ),
-          title: Padding(
-            padding: const EdgeInsets.only(left: 30),
-            child: Text(
-              'View Connects',
-              style: GoogleFonts.montserrat(
-                fontWeight: FontWeight.w600,
-                color: Colors.black54,
-              ),
+          title: Text(
+            'View Connects',
+            style: GoogleFonts.montserrat(
+              fontWeight: FontWeight.w600,
+              color: Colors.black54,
             ),
           ),
         ),
-        resizeToAvoidBottomInset: true,
         body: SingleChildScrollView(
-          padding: const EdgeInsets.only(left: 20, top: 20, right: 20),
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -258,7 +296,7 @@ class _ViewConnectsState extends State<ViewConnects> {
                     border: InputBorder.none,
                     suffixIcon: IconButton(
                       onPressed: () {
-                        _promoCodeController.clear(); // Clear the input field
+                        _promoCodeController.clear();
                       },
                       icon: const Icon(Icons.close),
                     ),
