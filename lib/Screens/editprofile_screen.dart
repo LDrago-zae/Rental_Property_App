@@ -22,7 +22,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       appBar: AppBar(
         title: Text(
           'Edit Profile',
-          style: GoogleFonts.montserrat(color: Colors.black,fontWeight: FontWeight.bold),
+          style: GoogleFonts.montserrat(
+              color: Colors.black, fontWeight: FontWeight.bold),
         ),
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -31,11 +32,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           padding: const EdgeInsets.all(8.0),
           child: Container(
             decoration: BoxDecoration(
-              color: Color(0xffd7e4e2),
+              color: const Color(0xffd7e4e2),
               borderRadius: BorderRadius.circular(30),
             ),
             child: IconButton(
-              icon: Icon(
+              icon: const Icon(
                 Icons.arrow_back,
                 color: Colors.black,
               ),
@@ -52,7 +53,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Profile Picture
-            Center(
+            const Center(
               child: Stack(
                 children: [
                   CircleAvatar(
@@ -67,20 +68,21 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     child: CircleAvatar(
                       backgroundColor: Color(0xFFB5E307),
                       radius: 16,
-                      child: Icon(Icons.camera_alt, color: Colors.white, size: 18),
+                      child:
+                          Icon(Icons.camera_alt, color: Colors.white, size: 18),
                     ),
                   ),
                 ],
               ),
             ),
-            SizedBox(height: 24),
+            const SizedBox(height: 24),
 
             // Name Field
             buildInputField(
               label: "Name",
               controller: nameController,
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
 
             // Phone Field
             Text(
@@ -90,7 +92,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Row(
               children: [
                 // Country Code Dropdown
@@ -123,7 +125,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     dropdownColor: Colors.grey.shade100,
                   ),
                 ),
-                SizedBox(width: 10),
+                const SizedBox(width: 10),
 
                 // Phone Number Field
                 Expanded(
@@ -137,8 +139,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     child: TextField(
                       controller: phoneController,
                       keyboardType: TextInputType.phone,
-                      decoration: InputDecoration(
-                        border: const OutlineInputBorder(
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(
                           borderSide: BorderSide.none,
                         ),
                         fillColor: Colors.transparent,
@@ -149,7 +151,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 ),
               ],
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
 
             // Password Field
             buildInputField(
@@ -168,16 +170,17 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 },
               ),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
 
             // Date of Birth Field
             buildInputField(
               label: "Date of Birth",
               controller: TextEditingController(
-                  text: "${selectedDate.day}/${selectedDate.month}/${selectedDate.year}"),
+                  text:
+                      "${selectedDate.day}/${selectedDate.month}/${selectedDate.year}"),
               isReadOnly: true,
               suffixIcon: IconButton(
-                icon: Icon(Icons.calendar_today, color: Colors.black),
+                icon: const Icon(Icons.calendar_today, color: Colors.black),
                 onPressed: () async {
                   DateTime? pickedDate = await showDatePicker(
                     context: context,
@@ -193,7 +196,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 },
               ),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
 
             // Country/Region Field
             buildInputField(
@@ -201,13 +204,13 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               controller: TextEditingController(text: selectedCountryRegion),
               isReadOnly: true,
               suffixIcon: IconButton(
-                icon: Icon(Icons.arrow_drop_down, color: Colors.black),
+                icon: const Icon(Icons.arrow_drop_down, color: Colors.black),
                 onPressed: () {
                   // Add logic to open region picker
                 },
               ),
             ),
-            SizedBox(height: 32),
+            const SizedBox(height: 32),
 
             // Save Button
             Center(
@@ -216,13 +219,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   // Handle save changes logic
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Color(0xFF025949),
-                  padding: EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+                  backgroundColor: const Color(0xFF025949),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8),
                   ),
                 ),
-                child: Text(
+                child: const Text(
                   'Save changes',
                   style: TextStyle(color: Colors.white),
                 ),
@@ -252,7 +256,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             fontWeight: FontWeight.bold,
           ),
         ),
-        SizedBox(height: 10),
+        const SizedBox(height: 10),
         Container(
           height: 45,
           decoration: BoxDecoration(

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rent_app/Screens/PropertyDetailScreen.dart';
 import 'package:rent_app/Screens/filter_screen.dart';
+import 'package:rent_app/Screens/post_property.dart';
 import 'package:rent_app/Screens/profile_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -94,8 +95,9 @@ class _HomePageState extends State<HomeScreen> {
                     icon: const Icon(Icons.filter_alt_outlined,
                         color: Colors.white),
                     onPressed: () {
-                      Navigator.of(context).push(MaterialPageRoute(builder: (context){
-                        return FilterScreen();
+                      Navigator.of(context)
+                          .push(MaterialPageRoute(builder: (context) {
+                        return const FilterScreen();
                       }));
                     },
                   ),
@@ -104,7 +106,8 @@ class _HomePageState extends State<HomeScreen> {
               const SizedBox(height: 20),
 
               // Category Chips
-              SingleChildScrollView( scrollDirection: Axis.horizontal,
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -149,7 +152,7 @@ class _HomePageState extends State<HomeScreen> {
                   children: const [
                     HouseCard(
                       imageUrl:
-                      'https://img.freepik.com/free-photo/luxury-pool-villa-spectacular-contemporary-design-digital-art-real-estate-home-house-property-ge_1258-150765.jpg',
+                          'https://img.freepik.com/free-photo/luxury-pool-villa-spectacular-contemporary-design-digital-art-real-estate-home-house-property-ge_1258-150765.jpg',
                       title: 'Dreamsville House',
                       price: '\$3,850',
                       location: 'Jl. Sultan Iskandar Muda',
@@ -157,7 +160,7 @@ class _HomePageState extends State<HomeScreen> {
                     SizedBox(width: 10),
                     HouseCard(
                       imageUrl:
-                      'https://img.freepik.com/free-photo/luxury-pool-villa-spectacular-contemporary-design-digital-art-real-estate-home-house-property-ge_1258-150749.jpg',
+                          'https://img.freepik.com/free-photo/luxury-pool-villa-spectacular-contemporary-design-digital-art-real-estate-home-house-property-ge_1258-150749.jpg',
                       title: 'Dream Haven',
                       price: '\$4,200',
                       location: 'Jl. Dream Boulevard',
@@ -261,9 +264,12 @@ class _HomePageState extends State<HomeScreen> {
                                 ),
                                 onPressed: () {
                                   Navigator.of(context).push(
-                                      MaterialPageRoute(builder: (context) {
-                                        return PropertyDetailscreen();
-                                      }));
+                                    MaterialPageRoute(
+                                      builder: (context) {
+                                        return const PropertyDetailscreen();
+                                      },
+                                    ),
+                                  );
                                 },
                                 child: Text(
                                   'See Details',
@@ -336,7 +342,7 @@ class _HomePageState extends State<HomeScreen> {
           ),
         ),
         backgroundColor:
-        isSelected ? const Color(0xff97be04) : const Color(0xff015c4e),
+            isSelected ? const Color(0xff97be04) : const Color(0xff015c4e),
       ),
     );
   }
@@ -349,6 +355,15 @@ class _HomePageState extends State<HomeScreen> {
         setState(() {
           _selectedIndex = index;
         });
+
+        if (index == 2) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const PostPropertyScreen(),
+            ),
+          );
+        }
 
         if (index == 4) {
           // If the person icon is tapped, navigate to ProfileScreen
