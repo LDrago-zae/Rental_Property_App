@@ -7,6 +7,8 @@ import 'package:rent_app/Screens/login.dart';
 import 'package:rent_app/Screens/terms_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
+  const ProfileScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -261,10 +263,10 @@ class ProfileScreen extends StatelessWidget {
                               context: context,
                               builder: (BuildContext context) {
                                 return AlertDialog(
-                                  contentPadding: const EdgeInsets.all(
-                                      8.0), // Remove the default padding
-                                  backgroundColor: Colors
-                                      .transparent, // Make the background transparent
+                                  contentPadding: const EdgeInsets.all(8.0),
+                                  // Remove the default padding
+                                  backgroundColor: Colors.transparent,
+                                  // Make the background transparent
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(10),
                                   ),
@@ -277,8 +279,8 @@ class ProfileScreen extends StatelessWidget {
                                         borderRadius: BorderRadius.circular(15),
                                         boxShadow: [
                                           BoxShadow(
-                                            color:
-                                                Colors.black.withOpacity(0.1),
+                                            color: Colors.black
+                                                .withValues(alpha: 0.1),
                                             blurRadius: 5,
                                             offset: const Offset(0, 3),
                                           ),

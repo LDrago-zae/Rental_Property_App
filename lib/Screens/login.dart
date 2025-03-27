@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rent_app/Screens/home_screen.dart';
 import 'package:rent_app/Screens/signin.dart';
+import 'package:rent_app/services/supabase_service.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -19,8 +20,16 @@ class _LoginState extends State<Login> {
     print("Signing in with phone: $countryCode $phone and password: $password");
   }
 
-  void signInWithGoogle() {
-    print("Signing in with Google");
+  Future<void> signInWithGoogle() async {
+    try {
+      await SupabaseService().googleSignIn(); // Ensure this function is implemented in SupabaseService
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const HomeScreen()),
+      );
+    } catch (e) {
+      print("Google Sign-In Error: $e");
+    }
   }
 
   void signInWithFacebook() {
@@ -252,7 +261,21 @@ class _LoginState extends State<Login> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     _buildSocialIconButton(
-                        'assets/icons/google.png', signInWithGoogle),
+                        'assets/icons/google.png', () async {
+                      try {
+                        await signInWithGoogle();
+
+                        if(!mounted) return;
+
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => const HomeScreen()),
+                        );
+                      } catch (e) {
+                        print("Google Sign-In Error: $e");
+                      }
+                    },
+                    ),
                     const SizedBox(width: 15),
                     _buildSocialIconButton(
                         'assets/icons/facebook.png', signInWithFacebook),
