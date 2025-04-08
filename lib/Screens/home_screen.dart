@@ -1,20 +1,57 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rent_app/Screens/PropertyDetailScreen.dart';
 import 'package:rent_app/Screens/filter_screen.dart';
-import 'package:rent_app/Screens/post_property.dart';
 import 'package:rent_app/Screens/profile_screen.dart';
+import 'package:rent_app/Screens/results_screen.dart';
+import 'package:rent_app/database/database_helper.dart';
+
+import 'chatscreen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
   @override
-  _HomePageState createState() => _HomePageState();
+  State<HomeScreen> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomeScreen> {
   String selectedCategory = 'Family';
   int _selectedIndex = 0;
+  List<Map<String, dynamic>> houses = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _loadHouses();
+  }
+
+  Future<void> _loadHouses() async {
+    final dbHelper = DatabaseHelper.instance;
+
+    // Insert sample data (move this to a separate feature in a real app)
+    await dbHelper.insertHouse(
+      imageUrl:
+          'https://img.freepik.com/free-photo/luxury-pool-villa-spectacular-contemporary-design-digital-art-real-estate-home-house-property-ge_1258-150765.jpg',
+      title: 'Dreamsville House',
+      price: '\$3,850',
+      location: 'Jl. Sultan Iskandar Muda',
+    );
+    await dbHelper.insertHouse(
+      imageUrl:
+          'https://img.freepik.com/free-photo/luxury-pool-villa-spectacular-contemporary-design-digital-art-real-estate-home-house-property-ge_1258-150749.jpg',
+      title: 'Dream Haven',
+      price: '\$4,200',
+      location: 'Jl. Dream Boulevard',
+    );
+
+    // Fetch houses from SQLite
+    final houseList = await dbHelper.getHouses();
+    setState(() {
+      houses = houseList;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,13 +63,12 @@ class _HomePageState extends State<HomeScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Custom Header Section
+              // Header Section
               Padding(
                 padding: const EdgeInsets.only(top: 20.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    // Title Section
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -54,16 +90,13 @@ class _HomePageState extends State<HomeScreen> {
                         ),
                       ],
                     ),
-                    // Notification Icon
                     IconButton(
                       icon: const Icon(
                         Icons.notifications_none,
                         color: Colors.white,
                         size: 28,
                       ),
-                      onPressed: () {
-                        // Add notification logic here
-                      },
+                      onPressed: () {},
                     ),
                   ],
                 ),
@@ -109,7 +142,6 @@ class _HomePageState extends State<HomeScreen> {
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     buildCategoryChip('Bachelor'),
                     buildCategoryChip('Family'),
@@ -143,34 +175,25 @@ class _HomePageState extends State<HomeScreen> {
                 ],
               ),
               const SizedBox(height: 10),
-
-              // Recent House Cards
               SizedBox(
                 height: 150,
-                child: ListView(
+                child: ListView.builder(
                   scrollDirection: Axis.horizontal,
-                  children: const [
-                    HouseCard(
-                      imageUrl:
-                          'https://img.freepik.com/free-photo/luxury-pool-villa-spectacular-contemporary-design-digital-art-real-estate-home-house-property-ge_1258-150765.jpg',
-                      title: 'Dreamsville House',
-                      price: '\$3,850',
-                      location: 'Jl. Sultan Iskandar Muda',
-                    ),
-                    SizedBox(width: 10),
-                    HouseCard(
-                      imageUrl:
-                          'https://img.freepik.com/free-photo/luxury-pool-villa-spectacular-contemporary-design-digital-art-real-estate-home-house-property-ge_1258-150749.jpg',
-                      title: 'Dream Haven',
-                      price: '\$4,200',
-                      location: 'Jl. Dream Boulevard',
-                    ),
-                  ],
+                  itemCount: houses.length,
+                  itemBuilder: (context, index) {
+                    final house = houses[index];
+                    return HouseCard(
+                      imageUrl: house['imagePath'], // Local file path
+                      title: house['title'],
+                      price: house['price'],
+                      location: house['location'],
+                    );
+                  },
                 ),
               ),
               const SizedBox(height: 20),
 
-              // Best from You Section
+              // Best from You Section (static for now)
               Padding(
                 padding: const EdgeInsets.only(left: 8.0),
                 child: Text(
@@ -192,7 +215,6 @@ class _HomePageState extends State<HomeScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // Image Section
                     ClipRRect(
                       borderRadius: const BorderRadius.vertical(
                         top: Radius.circular(10),
@@ -204,7 +226,6 @@ class _HomePageState extends State<HomeScreen> {
                         fit: BoxFit.cover,
                       ),
                     ),
-                    // Details Section
                     Padding(
                       padding: const EdgeInsets.all(20.0),
                       child: Column(
@@ -234,7 +255,6 @@ class _HomePageState extends State<HomeScreen> {
                             ],
                           ),
                           const SizedBox(height: 12),
-                          // Price, Monthly Rent, and Button in Row
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -287,13 +307,11 @@ class _HomePageState extends State<HomeScreen> {
                     ),
                   ],
                 ),
-              )
+              ),
             ],
           ),
         ),
       ),
-
-      // Floating Bottom Navigation Bar
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(30.0),
         child: Container(
@@ -303,7 +321,7 @@ class _HomePageState extends State<HomeScreen> {
             borderRadius: BorderRadius.circular(40),
             boxShadow: [
               BoxShadow(
-                color: Colors.grey.withOpacity(0.2),
+                color: Colors.grey.withValues(alpha: 0.2),
                 spreadRadius: 2,
                 blurRadius: 10,
               ),
@@ -326,7 +344,6 @@ class _HomePageState extends State<HomeScreen> {
 
   Widget buildCategoryChip(String category) {
     bool isSelected = selectedCategory == category;
-
     return GestureDetector(
       onTap: () {
         setState(() {
@@ -349,49 +366,65 @@ class _HomePageState extends State<HomeScreen> {
 
   Widget _buildNavItem(IconData icon, int index) {
     bool isSelected = _selectedIndex == index;
-
     return GestureDetector(
       onTap: () {
         setState(() {
           _selectedIndex = index;
         });
-
+        if (index == 0) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const HomeScreen()),
+          );
+        }
+        // if (index == 1) {
+        //   Navigator.push(
+        //     context,
+        //     MaterialPageRoute(builder: (context) => const FavouritesScreen()),),
+        //   );
         if (index == 2) {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => const PostPropertyScreen(),
+              builder: (context) => const ResultsScreen(),
             ),
           );
         }
-
-        if (index == 4) {
-          // If the person icon is tapped, navigate to ProfileScreen
+        if (index == 3) {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => ProfileScreen()),
+            MaterialPageRoute(
+                builder: (context) => const ChatScreen(
+                      isOwner: false,
+                    )),
           );
+          if (index == 4) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const ProfileScreen()),
+            );
+          }
         }
+        Container(
+          width: 50,
+          height: 50,
+          decoration: BoxDecoration(
+            color: isSelected ? const Color(0xff97be04) : Colors.white,
+            shape: BoxShape.circle,
+          ),
+          child: Icon(
+            icon,
+            color: isSelected ? Colors.white : const Color(0xff015c4e),
+            size: 28,
+          ),
+        );
       },
-      child: Container(
-        width: 50,
-        height: 50,
-        decoration: BoxDecoration(
-          color: isSelected ? const Color(0xff97be04) : Colors.white,
-          shape: BoxShape.circle,
-        ),
-        child: Icon(
-          icon,
-          color: isSelected ? Colors.white : const Color(0xff015c4e),
-          size: 28,
-        ),
-      ),
     );
   }
 }
 
 class HouseCard extends StatelessWidget {
-  final String imageUrl;
+  final String imageUrl; // Local file path
   final String title;
   final String price;
   final String location;
@@ -415,17 +448,18 @@ class HouseCard extends StatelessWidget {
       ),
       child: Stack(
         children: [
-          // Background Image
           ClipRRect(
             borderRadius: BorderRadius.circular(20),
-            child: Image.network(
-              imageUrl,
+            child: Image.file(
+              File(imageUrl),
               height: 150,
               width: double.infinity,
               fit: BoxFit.cover,
+              errorBuilder: (context, error, stackTrace) {
+                return const Center(child: Text('Image not found'));
+              },
             ),
           ),
-          // Gradient Overlay
           ClipRRect(
             borderRadius: BorderRadius.circular(20),
             child: Container(
@@ -434,7 +468,7 @@ class HouseCard extends StatelessWidget {
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   colors: [
-                    Colors.black.withOpacity(0.5),
+                    Colors.black.withValues(alpha: 0.5),
                     Colors.transparent,
                   ],
                   begin: Alignment.bottomCenter,
@@ -443,7 +477,6 @@ class HouseCard extends StatelessWidget {
               ),
             ),
           ),
-          // Text and Price
           Positioned(
             bottom: 10,
             left: 10,

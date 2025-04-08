@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:rent_app/Screens/PropertyDetailScreen.dart';
 import 'package:rent_app/Screens/editprofile_screen.dart';
 import 'package:rent_app/Screens/help_screen.dart';
 import 'package:rent_app/Screens/home_screen.dart';
 import 'package:rent_app/Screens/login.dart';
 import 'package:rent_app/Screens/terms_screen.dart';
+import 'package:rent_app/Screens/view_connects.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -148,6 +150,10 @@ class ProfileScreen extends StatelessWidget {
                             'Connects',
                             style: GoogleFonts.montserrat(),
                           ),
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => const ViewConnects()));
+                          },
                           trailing: Text(
                             '35',
                             style: GoogleFonts.montserrat(
@@ -169,7 +175,11 @@ class ProfileScreen extends StatelessWidget {
                             'Unlocked Properties',
                             style: GoogleFonts.montserrat(),
                           ),
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) =>
+                                    const PropertyDetailscreen()));
+                          },
                         ),
                       ],
                     ),

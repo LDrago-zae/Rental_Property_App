@@ -22,7 +22,8 @@ class _LoginState extends State<Login> {
 
   Future<void> signInWithGoogle() async {
     try {
-      await SupabaseService().googleSignIn(); // Ensure this function is implemented in SupabaseService
+      await SupabaseService()
+          .googleSignIn(); // Ensure this function is implemented in SupabaseService
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => const HomeScreen()),
@@ -261,20 +262,22 @@ class _LoginState extends State<Login> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     _buildSocialIconButton(
-                        'assets/icons/google.png', () async {
-                      try {
-                        await signInWithGoogle();
+                      'assets/icons/google.png',
+                      () async {
+                        try {
+                          await signInWithGoogle();
 
-                        if(!mounted) return;
+                          if (!mounted) return;
 
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => const HomeScreen()),
-                        );
-                      } catch (e) {
-                        print("Google Sign-In Error: $e");
-                      }
-                    },
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const HomeScreen()),
+                          );
+                        } catch (e) {
+                          print("Google Sign-In Error: $e");
+                        }
+                      },
                     ),
                     const SizedBox(width: 15),
                     _buildSocialIconButton(
