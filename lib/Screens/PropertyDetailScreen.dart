@@ -2,7 +2,6 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rent_app/Screens/chatscreen.dart';
-import 'package:rent_app/Screens/profile_screen.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class PropertyDetailscreen extends StatefulWidget {

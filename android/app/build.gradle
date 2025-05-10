@@ -7,7 +7,7 @@ plugins {
 
 android {
     namespace = "com.xoxo.rent_app"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId "com.xoxo.rent_app"
