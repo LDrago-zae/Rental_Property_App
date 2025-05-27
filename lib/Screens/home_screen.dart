@@ -1,12 +1,13 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+// Import your other screens as before
 import 'package:rent_app/Screens/PropertyDetailScreen.dart';
 import 'package:rent_app/Screens/filter_screen.dart';
+import 'package:rent_app/Screens/post_property.dart';
 import 'package:rent_app/Screens/profile_screen.dart';
 import 'package:rent_app/Screens/results_screen.dart';
 import 'package:rent_app/database/database_helper.dart';
-
 import 'chatscreen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -30,17 +31,17 @@ class _HomePageState extends State<HomeScreen> {
   Future<void> _loadHouses() async {
     final dbHelper = DatabaseHelper.instance;
 
-    // Insert sample data (move this to a separate feature in a real app)
+    // Sample data insertion for demo (remove in production)
     await dbHelper.insertHouse(
       imageUrl:
-          'https://img.freepik.com/free-photo/luxury-pool-villa-spectacular-contemporary-design-digital-art-real-estate-home-house-property-ge_1258-150765.jpg',
+      'https://img.freepik.com/free-photo/luxury-pool-villa-spectacular-contemporary-design-digital-art-real-estate-home-house-property-ge_1258-150765.jpg',
       title: 'Dreamsville House',
       price: '\$3,850',
       location: 'Jl. Sultan Iskandar Muda',
     );
     await dbHelper.insertHouse(
       imageUrl:
-          'https://img.freepik.com/free-photo/luxury-pool-villa-spectacular-contemporary-design-digital-art-real-estate-home-house-property-ge_1258-150749.jpg',
+      'https://img.freepik.com/free-photo/luxury-pool-villa-spectacular-contemporary-design-digital-art-real-estate-home-house-property-ge_1258-150749.jpg',
       title: 'Dream Haven',
       price: '\$4,200',
       location: 'Jl. Dream Boulevard',
@@ -55,17 +56,24 @@ class _HomePageState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final Size screenSize = MediaQuery.of(context).size;
+    final double padding = screenSize.width * 0.04;
+    final double headerFont = screenSize.width * 0.06;
+    final double recentCardHeight = screenSize.height * 0.22;
+    final double bottomBarHeight = screenSize.height * 0.09;
+    final double navIconSize = screenSize.width * 0.08;
+
     return Scaffold(
       backgroundColor: const Color(0xff015c4e),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(15.0),
+          padding: EdgeInsets.all(padding),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // Header Section
               Padding(
-                padding: const EdgeInsets.only(top: 20.0),
+                padding: EdgeInsets.only(top: padding),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -75,7 +83,7 @@ class _HomePageState extends State<HomeScreen> {
                         Text(
                           'Find Your',
                           style: GoogleFonts.montserrat(
-                            fontSize: 22,
+                            fontSize: headerFont,
                             fontWeight: FontWeight.w600,
                             color: Colors.white,
                           ),
@@ -83,7 +91,7 @@ class _HomePageState extends State<HomeScreen> {
                         Text(
                           'Dream House',
                           style: GoogleFonts.montserrat(
-                            fontSize: 22,
+                            fontSize: headerFont,
                             fontWeight: FontWeight.w600,
                             color: Colors.white,
                           ),
@@ -91,17 +99,17 @@ class _HomePageState extends State<HomeScreen> {
                       ],
                     ),
                     IconButton(
-                      icon: const Icon(
+                      icon: Icon(
                         Icons.notifications_none,
                         color: Colors.white,
-                        size: 28,
+                        size: navIconSize + 6,
                       ),
                       onPressed: () {},
                     ),
                   ],
                 ),
               ),
-              const SizedBox(height: 20),
+              SizedBox(height: screenSize.height * 0.02),
 
               // Search Bar and Filters
               Row(
@@ -112,31 +120,38 @@ class _HomePageState extends State<HomeScreen> {
                         filled: true,
                         fillColor: Colors.white,
                         hintText: 'Search',
-                        prefixIcon: const Icon(
+                        prefixIcon: Icon(
                           Icons.search_outlined,
                           color: Colors.blueGrey,
+                          size: navIconSize,
                         ),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(30),
                           borderSide: BorderSide.none,
                         ),
+                        contentPadding: EdgeInsets.symmetric(
+                            vertical: screenSize.height * 0.017),
                       ),
                     ),
                   ),
-                  const SizedBox(width: 10),
-                  IconButton(
-                    icon: const Icon(Icons.filter_alt_outlined,
-                        color: Colors.white),
-                    onPressed: () {
-                      Navigator.of(context)
-                          .push(MaterialPageRoute(builder: (context) {
-                        return const FilterScreen();
-                      }));
-                    },
+                  SizedBox(width: padding),
+                  Container(
+                    decoration: const BoxDecoration(
+                      color: Color(0xff97be04),
+                      shape: BoxShape.circle,
+                    ),
+                    child: IconButton(
+                      icon: Icon(Icons.filter_alt_outlined,
+                          color: Colors.white, size: navIconSize),
+                      onPressed: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => const FilterScreen()));
+                      },
+                    ),
                   ),
                 ],
               ),
-              const SizedBox(height: 20),
+              SizedBox(height: screenSize.height * 0.018),
 
               // Category Chips
               SingleChildScrollView(
@@ -150,16 +165,16 @@ class _HomePageState extends State<HomeScreen> {
                   ],
                 ),
               ),
-              const SizedBox(height: 20),
+              SizedBox(height: screenSize.height * 0.018),
 
               // Recent Section
-              const Row(
+              Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
                     'Recent',
                     style: TextStyle(
-                      fontSize: 20,
+                      fontSize: screenSize.width * 0.05,
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
                     ),
@@ -167,101 +182,103 @@ class _HomePageState extends State<HomeScreen> {
                   Text(
                     'View All',
                     style: TextStyle(
-                      fontSize: 15,
+                      fontSize: screenSize.width * 0.038,
                       fontWeight: FontWeight.w400,
                       color: Colors.white,
                     ),
                   ),
                 ],
               ),
-              const SizedBox(height: 10),
+              SizedBox(height: screenSize.height * 0.012),
               SizedBox(
-                height: 150,
+                height: recentCardHeight,
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
                   itemCount: houses.length,
                   itemBuilder: (context, index) {
                     final house = houses[index];
                     return HouseCard(
-                      imageUrl: house['imagePath'], // Local file path
+                      imageUrl: house['imagePath'],
                       title: house['title'],
                       price: house['price'],
                       location: house['location'],
+                      cardWidth: screenSize.width * 0.68,
+                      cardHeight: recentCardHeight,
                     );
                   },
                 ),
               ),
-              const SizedBox(height: 20),
+              SizedBox(height: screenSize.height * 0.018),
 
-              // Best from You Section (static for now)
+              // Best from You Section
               Padding(
-                padding: const EdgeInsets.only(left: 8.0),
+                padding: EdgeInsets.only(left: padding * 0.5),
                 child: Text(
                   'Best from you',
                   style: GoogleFonts.montserrat(
-                    fontSize: 20,
+                    fontSize: screenSize.width * 0.05,
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
                   ),
                 ),
               ),
-              const SizedBox(height: 10),
+              SizedBox(height: screenSize.height * 0.012),
               Card(
                 elevation: 12,
-                margin: const EdgeInsets.only(left: 10, right: 10),
+                margin: EdgeInsets.symmetric(horizontal: padding),
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius: BorderRadius.circular(screenSize.width * 0.045),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     ClipRRect(
-                      borderRadius: const BorderRadius.vertical(
-                        top: Radius.circular(10),
+                      borderRadius: BorderRadius.vertical(
+                        top: Radius.circular(screenSize.width * 0.045),
                       ),
                       child: Image.network(
                         'https://img.freepik.com/free-photo/luxurious-villa-with-modern-architectural-design_23-2151694017.jpg',
-                        height: 200,
+                        height: screenSize.height * 0.26,
                         width: double.infinity,
                         fit: BoxFit.cover,
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.all(20.0),
+                      padding: EdgeInsets.all(screenSize.width * 0.05),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
                             'Luxury Retreat',
                             style: GoogleFonts.montserrat(
-                              fontSize: 18,
+                              fontSize: screenSize.width * 0.046,
                               fontWeight: FontWeight.bold,
                               color: Colors.black,
                             ),
                           ),
-                          const SizedBox(height: 8),
+                          SizedBox(height: screenSize.height * 0.009),
                           Row(
                             children: [
-                              const Icon(Icons.location_on_outlined,
-                                  color: Colors.grey, size: 16),
-                              const SizedBox(width: 4),
+                              Icon(Icons.location_on_outlined,
+                                  color: Colors.grey, size: navIconSize - 3),
+                              SizedBox(width: 4),
                               Text(
                                 'Jl. Sunset Paradise',
                                 style: GoogleFonts.montserrat(
-                                  fontSize: 14,
+                                  fontSize: screenSize.width * 0.032,
                                   color: Colors.grey[600],
                                 ),
                               ),
                             ],
                           ),
-                          const SizedBox(height: 12),
+                          SizedBox(height: screenSize.height * 0.014),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
                                 '\$5,300',
                                 style: GoogleFonts.montserrat(
-                                  fontSize: 16,
+                                  fontSize: screenSize.width * 0.045,
                                   fontWeight: FontWeight.bold,
                                   color: const Color(0xff015c4e),
                                 ),
@@ -269,7 +286,7 @@ class _HomePageState extends State<HomeScreen> {
                               Text(
                                 'Monthly Rent',
                                 style: GoogleFonts.montserrat(
-                                  fontSize: 14,
+                                  fontSize: screenSize.width * 0.037,
                                   color: const Color(0xff015c4e),
                                 ),
                               ),
@@ -277,10 +294,13 @@ class _HomePageState extends State<HomeScreen> {
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: const Color(0xff97be04),
                                   shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(20),
+                                    borderRadius: BorderRadius.circular(
+                                        screenSize.width * 0.055),
                                   ),
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 16, vertical: 8),
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: screenSize.width * 0.045,
+                                    vertical: screenSize.height * 0.013,
+                                  ),
                                 ),
                                 onPressed: () {
                                   Navigator.of(context).push(
@@ -294,7 +314,7 @@ class _HomePageState extends State<HomeScreen> {
                                 child: Text(
                                   'See Details',
                                   style: GoogleFonts.montserrat(
-                                    fontSize: 14,
+                                    fontSize: screenSize.width * 0.035,
                                     fontWeight: FontWeight.bold,
                                     color: const Color(0xff015c4e),
                                   ),
@@ -313,15 +333,15 @@ class _HomePageState extends State<HomeScreen> {
         ),
       ),
       bottomNavigationBar: Padding(
-        padding: const EdgeInsets.all(30.0),
+        padding: EdgeInsets.all(padding * 2),
         child: Container(
-          height: 70,
+          height: bottomBarHeight,
           decoration: BoxDecoration(
             color: Colors.white,
-            borderRadius: BorderRadius.circular(40),
+            borderRadius: BorderRadius.circular(screenSize.width * 0.1),
             boxShadow: [
               BoxShadow(
-                color: Colors.grey.withValues(alpha: 0.2),
+                color: Colors.grey.withOpacity(0.2),
                 spreadRadius: 2,
                 blurRadius: 10,
               ),
@@ -330,11 +350,11 @@ class _HomePageState extends State<HomeScreen> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              _buildNavItem(Icons.home_max_outlined, 0),
-              _buildNavItem(Icons.favorite_border, 1),
-              _buildNavItem(Icons.add_circle_outline, 2),
-              _buildNavItem(Icons.chat_bubble_outline_rounded, 3),
-              _buildNavItem(Icons.person_outline, 4),
+              _buildNavItem(Icons.home_max_outlined, 0, navIconSize),
+              _buildNavItem(Icons.favorite_border, 1, navIconSize),
+              _buildNavItem(Icons.add_circle_outline, 2, navIconSize),
+              _buildNavItem(Icons.chat_bubble_outline_rounded, 3, navIconSize),
+              _buildNavItem(Icons.person_outline, 4, navIconSize),
             ],
           ),
         ),
@@ -343,50 +363,55 @@ class _HomePageState extends State<HomeScreen> {
   }
 
   Widget buildCategoryChip(String category) {
+    final Size screenSize = MediaQuery.of(context).size;
     bool isSelected = selectedCategory == category;
-    return GestureDetector(
-      onTap: () {
-        setState(() {
-          selectedCategory = category;
-        });
-      },
-      child: Chip(
-        label: Text(
-          category,
-          style: GoogleFonts.montserrat(
-            color: isSelected ? Colors.white : Colors.white70,
-            fontWeight: FontWeight.bold,
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: screenSize.width * 0.01),
+      child: GestureDetector(
+        onTap: () {
+          setState(() {
+            selectedCategory = category;
+          });
+        },
+        child: Chip(
+          label: Text(
+            category,
+            style: GoogleFonts.montserrat(
+              color: isSelected ? Colors.white : Colors.white70,
+              fontWeight: FontWeight.bold,
+              fontSize: screenSize.width * 0.04,
+            ),
+          ),
+          backgroundColor:
+          isSelected ? const Color(0xff97be04) : const Color(0xff015c4e),
+          padding: EdgeInsets.symmetric(
+            vertical: screenSize.height * 0.005,
+            horizontal: screenSize.width * 0.035,
           ),
         ),
-        backgroundColor:
-            isSelected ? const Color(0xff97be04) : const Color(0xff015c4e),
       ),
     );
   }
 
-  Widget _buildNavItem(IconData icon, int index) {
+  Widget _buildNavItem(IconData icon, int index, double iconSize) {
     bool isSelected = _selectedIndex == index;
     return GestureDetector(
       onTap: () {
         setState(() {
           _selectedIndex = index;
         });
+        // Navigation logic as before
         if (index == 0) {
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => const HomeScreen()),
           );
         }
-        // if (index == 1) {
-        //   Navigator.push(
-        //     context,
-        //     MaterialPageRoute(builder: (context) => const FavouritesScreen()),),
-        //   );
         if (index == 2) {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => const ResultsScreen(),
+              builder: (context) => const PostPropertyScreen(),
             ),
           );
         }
@@ -395,39 +420,42 @@ class _HomePageState extends State<HomeScreen> {
             context,
             MaterialPageRoute(
                 builder: (context) => const ChatScreen(
-                      isOwner: false,
-                    )),
+                  isOwner: false,
+                )),
           );
-          if (index == 4) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const ProfileScreen()),
-            );
-          }
         }
-        Container(
-          width: 50,
-          height: 50,
-          decoration: BoxDecoration(
-            color: isSelected ? const Color(0xff97be04) : Colors.white,
-            shape: BoxShape.circle,
-          ),
-          child: Icon(
-            icon,
-            color: isSelected ? Colors.white : const Color(0xff015c4e),
-            size: 28,
-          ),
-        );
+        if (index == 4) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const ProfileScreen()),
+          );
+        }
       },
+      child: Container(
+        width: iconSize * 1.6,
+        height: iconSize * 1.6,
+        decoration: BoxDecoration(
+          color: isSelected ? const Color(0xff97be04) : Colors.white,
+          shape: BoxShape.circle,
+        ),
+        child: Icon(
+          icon,
+          color: isSelected ? Colors.white : const Color(0xff015c4e),
+          size: iconSize,
+        ),
+      ),
     );
   }
 }
 
+// Responsive HouseCard widget
 class HouseCard extends StatelessWidget {
-  final String imageUrl; // Local file path
+  final String imageUrl;
   final String title;
   final String price;
   final String location;
+  final double cardWidth;
+  final double cardHeight;
 
   const HouseCard({
     super.key,
@@ -435,25 +463,27 @@ class HouseCard extends StatelessWidget {
     required this.title,
     required this.price,
     required this.location,
+    required this.cardWidth,
+    required this.cardHeight,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 300,
-      margin: const EdgeInsets.only(right: 10),
+      width: cardWidth,
+      margin: EdgeInsets.only(right: cardWidth * 0.06),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(cardWidth * 0.08),
         color: Colors.white,
       ),
       child: Stack(
         children: [
           ClipRRect(
-            borderRadius: BorderRadius.circular(20),
+            borderRadius: BorderRadius.circular(cardWidth * 0.08),
             child: Image.file(
               File(imageUrl),
-              height: 150,
-              width: double.infinity,
+              height: cardHeight,
+              width: cardWidth,
               fit: BoxFit.cover,
               errorBuilder: (context, error, stackTrace) {
                 return const Center(child: Text('Image not found'));
@@ -461,14 +491,14 @@ class HouseCard extends StatelessWidget {
             ),
           ),
           ClipRRect(
-            borderRadius: BorderRadius.circular(20),
+            borderRadius: BorderRadius.circular(cardWidth * 0.08),
             child: Container(
-              height: 150,
-              width: double.infinity,
+              height: cardHeight,
+              width: cardWidth,
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   colors: [
-                    Colors.black.withValues(alpha: 0.5),
+                    Colors.black.withOpacity(0.5),
                     Colors.transparent,
                   ],
                   begin: Alignment.bottomCenter,
@@ -478,9 +508,9 @@ class HouseCard extends StatelessWidget {
             ),
           ),
           Positioned(
-            bottom: 10,
-            left: 10,
-            right: 10,
+            bottom: cardHeight * 0.07,
+            left: cardWidth * 0.06,
+            right: cardWidth * 0.06,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -489,18 +519,18 @@ class HouseCard extends StatelessWidget {
                   style: GoogleFonts.montserrat(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
-                    fontSize: 16,
+                    fontSize: cardWidth * 0.075,
                   ),
                 ),
-                const SizedBox(height: 4),
+                SizedBox(height: cardHeight * 0.02),
                 Text(
                   location,
                   style: GoogleFonts.montserrat(
                     color: Colors.white70,
-                    fontSize: 12,
+                    fontSize: cardWidth * 0.052,
                   ),
                 ),
-                const SizedBox(height: 4),
+                SizedBox(height: cardHeight * 0.018),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -509,14 +539,14 @@ class HouseCard extends StatelessWidget {
                       style: GoogleFonts.montserrat(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
-                        fontSize: 16,
+                        fontSize: cardWidth * 0.07,
                       ),
                     ),
-                    const Text(
+                    Text(
                       'Monthly Rent',
                       style: TextStyle(
                         color: Colors.white70,
-                        fontSize: 12,
+                        fontSize: cardWidth * 0.052,
                       ),
                     ),
                   ],
