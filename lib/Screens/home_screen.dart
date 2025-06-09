@@ -1,12 +1,10 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-// Import your other screens as before
 import 'package:rent_app/Screens/PropertyDetailScreen.dart';
 import 'package:rent_app/Screens/filter_screen.dart';
 import 'package:rent_app/Screens/post_property.dart';
 import 'package:rent_app/Screens/profile_screen.dart';
-import 'package:rent_app/Screens/results_screen.dart';
 import 'package:rent_app/database/database_helper.dart';
 import 'chatscreen.dart';
 
@@ -261,7 +259,7 @@ class _HomePageState extends State<HomeScreen> {
                             children: [
                               Icon(Icons.location_on_outlined,
                                   color: Colors.grey, size: navIconSize - 3),
-                              SizedBox(width: 4),
+                              const SizedBox(width: 4),
                               Text(
                                 'Jl. Sunset Paradise',
                                 style: GoogleFonts.montserrat(
@@ -341,7 +339,7 @@ class _HomePageState extends State<HomeScreen> {
             borderRadius: BorderRadius.circular(screenSize.width * 0.1),
             boxShadow: [
               BoxShadow(
-                color: Colors.grey.withOpacity(0.2),
+                color: Colors.grey.withValues(alpha: .2),
                 spreadRadius: 2,
                 blurRadius: 10,
               ),
@@ -498,7 +496,7 @@ class HouseCard extends StatelessWidget {
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   colors: [
-                    Colors.black.withOpacity(0.5),
+                    Colors.black.withValues(alpha: .5),
                     Colors.transparent,
                   ],
                   begin: Alignment.bottomCenter,
